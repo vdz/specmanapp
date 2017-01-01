@@ -1,24 +1,19 @@
 "use strict";
 
-var request = require('request');
-
 const express = require('express');
-const git = require('git-rev');
 
 const app = express();
 const path = require('path');
-const env = process.env.NODE_ENV || 'dev';
-const port = 80;
+const port = 2000;
 
-const getVersion = new Promise((resolve)=>{
-    git.short((hash) => {
-        resolve(hash);
-    });
+
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/fonts', express.static(path.join(__dirname, 'public/fonts')));
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
+app.all('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../index.html'));
 });
-
-console.log(getVersion);
-
-app.all('/*');
 
 // Listen for requests
 var server = app.listen(port, function() {

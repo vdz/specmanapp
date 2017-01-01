@@ -1,7 +1,7 @@
 {
-  "name": "flashcards-web-app",
+  "name": "specman-web-app",
   "version": "1.0.0",
-  "description": "Flashcards+ Application Desktop Web Interface",
+  "description": "Specification manager for Regal American Homes",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -25,11 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@bitbucket.cheggnet.com:7999/eb/flashcards-web.git"
+    "url": "ssh://git@github.com:vdz/specmanapp.git"
   },
   "keywords": [
-    "chegg",
-    "flashcards"
+    ""
   ],
   "author": "Yehuda Gilead yehuda@chegg.com",
   "license": "ISC",
@@ -41,11 +40,13 @@
     "fs-promise": "^0.5.0",
     "git-rev": "^0.2.1",
     "json-loader": "^0.5.4",
-    "mustache": "^2.3.0",
+    "mysql2": "^1.1.2",
+    "pg": "^6.1.2",
+    "pg-hstore": "^2.3.2",
     "react": "^15.2.0",
+    "react-bootstrap": "^0.30.7",
     "react-dom": "^15.2.0",
     "react-dropzone": "^3.5.3",
-    "react-edit-inline": "https://github.com/vdz/ReactInlineEdit.git",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "react-router-redux": "^4.0.5",
@@ -53,6 +54,7 @@
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "request": "^2.76.0",
+    "sequelize": "^3.28.0",
     "webpack": "^1.13.1",
     "yamlparser": "0.0.2"
   },
