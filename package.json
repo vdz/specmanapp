@@ -10,7 +10,7 @@
     "build": "npm run build:js && npm run build:css",
     "postinstall": "npm run build",
     "watch:js": "webpack --config ./webpack/dev.config.js",
-    "watch:css": "compass watch -c config/compass.rb --sass-dir './src/sass'",
+    "watch:css": "compass watch -c config/compass.rb",
     "watch": "npm run watch:js & npm run watch:css",
     "lint": "eslint ./src",
     "webpack": "webpack"
