@@ -4,8 +4,8 @@ require 'compass/import-once/activate'
 # Set this to the root of your project when deployed:
 http_path = "/"
 css_dir = "./public/css/"
-sass_dir = "./src/sass"
-images_dir = "./src/sass/images"
+sass_dir = "./client/sass"
+images_dir = "./client/sass/images"
 generated_images_dir = "./public/images"
 
 output_style = :compressed

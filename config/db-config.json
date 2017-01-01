@@ -1,21 +1,21 @@
 {
     "dev" : {
-        "host" : "authentication-handoff-service.cdpu1q7bfaps.us-west-2.rds.amazonaws.com",
-        "database" : "chegg_handoff",
-        "username" : "handoff_admin",
-        "password" : "Ch399!FC",
-        "dialect": "mysql",
-        "pool": {
-            "max": 40,
-            "min": 10,
-            "idle": 100000
-        },
-        "logging": false
+        "host" : "127.0.0.1",
+        "database" : "specman",
+        "username" : "root",
+        "password" : "derb18",
+        "dialect" : "mysql",
+        "logging" : false,
+        "pool" : {
+            "max": 5,
+            "min": 0,
+            "idle": 10000
+        }
     },
     "test": {
         "username": "root",
         "password": null,
-        "database": "database_test",
+        "database": "specman",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },

@@ -5,7 +5,7 @@ var path      = require('path');
 var Sequelize = require('sequelize');
 var basename  = path.basename(module.filename);
 var env       = process.env.NODE_ENV || 'dev';
-var config    = require(__dirname + '/../config/db-config.json')[env];
+var config    = require(__dirname + '/../../config/db-config.json')[env];
 var db        = {};
 
 var sequelize = new Sequelize(config.database,
@@ -29,7 +29,21 @@ Object.keys(db).forEach(function(modelName) {
   }
 });
 
+// Associations
+db.Section.belongsTo(db.Project);
+db.Location.belongsTo(db.Project);
+db.File.belongsTo(db.Project);
+db.Type.belongsTo(db.Section);
+db.Section.hasMany(db.Spec);
+db.Spec.belongsTo(db.Location);
+db.Spec.belongsTo(db.Type);
+db.Field.belongsTo(db.Spec);
+db.Media.belongsTo(db.Spec);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
+
+//_ sync for first run only
+//_ sequelize.sync();
 
 module.exports = db;
