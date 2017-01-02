@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="307309556310-qbikfmu666eip4e609okn2b50fd5ni0r.apps.googleusercontent.com">
     <title></title>
     <style type="text/css">
         .loader {
@@ -16,8 +18,20 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="/css/styles.css" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+    <section id="signin" class='SignIn'>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    </section>
+    <script>
+        function onSignIn(googleUser) {
+            window.init({
+                target : 'app',
+                user : googleUser
+            });
+        };
+    </script>
     <div id="app"></div>
     <script src="/js/index.js"></script>
 </body>

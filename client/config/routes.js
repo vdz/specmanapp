@@ -3,10 +3,11 @@ import { Route } from 'react-router';
 import { Options } from '../helpers/mixins.js';
 
 import { App } from '../containers/App.js';
+import Projects from '../components/Projects.js';
+import Sections from '../components/Sections';
 
 export const default_routes = {
     base : '/',
-    login : '/login',
     projects : '/projects',
     project : '/project/:id',
     sections : '/project/:id/sections',
@@ -39,7 +40,8 @@ export function buildRoute(name, args) {
 export default () => {
     return  <Route>
                 <Route path={routes.base} component={App}>
-                    
+                    <Route path={routes.projects} component={Projects} />
+                    <Route path={routes.sections} component={Sections} />
                 </Route>
-            </Route>
+            </Route>;
 }

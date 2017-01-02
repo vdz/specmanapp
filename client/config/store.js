@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { routerMiddleware } from 'react-router-redux';
-import { rootReducer, default_state } from '../reducers/index.reducer.js';
+import { appReducer, default_state } from '../reducers/index.reducer.js';
 import history from '../config/history.js';
 
 const createStoreWithMiddleware = compose(
@@ -16,7 +16,7 @@ const createStoreWithMiddleware = compose(
 
 export default function configureStore(initialState = default_state) {
     const reducer = combineReducers({
-        ...rootReducer,
+        ...appReducer,
         routing : routerReducer
     });
 

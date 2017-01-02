@@ -1,0 +1,25 @@
+.Head {
+    width: 100%;
+    background-color: #563D7C;
+    color: #fff;
+
+    .toolbar {
+        padding-top: $spacer-y;
+        padding-bottom: $spacer-y;
+    }
+
+    .title {
+        text-align: center;
+        line-height: 100%;
+        color: #fff;
+    }
+
+    .user {
+        text-align: right;
+
+        .avatar {
+            max-height: $toolbar-height - $spacer-y*2;
+            border: 2px solid #fff;
+        }
+    }
+}
