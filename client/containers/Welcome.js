@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Head } from '../components/Head.js';
+import { BigHead } from '../components/Head.js';
 
-export class App extends React.Component {
+export class Welcome extends React.Component {
     render() {
         return  <section className='app-container'>
                     <section className='container'>
                         <div className='row'>
-                            <Head className='col-lg' />
+                            <BigHead className='col-lg' />
                         </div>
                         <div className='row'>
                             { this.props.children }

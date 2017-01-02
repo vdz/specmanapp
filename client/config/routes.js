@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { Options } from '../helpers/mixins.js';
 
-import App from '../containers/App.js';
+import { App } from '../containers/App.js';
 
 export const default_routes = {
     base : '/',
@@ -39,7 +39,7 @@ export function buildRoute(name, args) {
 export default () => {
     return  <Route>
                 <Route path={routes.base} component={App}>
-
+                    
                 </Route>
             </Route>
 }
