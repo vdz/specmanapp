@@ -1,4 +1,7 @@
-import { GOT_PROJECTS } from  '../actions/data.actions.js';
+import {
+    GOT_PROJECTS,
+    PROJECT_CREATED
+} from  '../actions/data.actions.js';
 
 export const default_state = {
     data : {
@@ -15,6 +18,14 @@ export function reducer(state = default_state, action) {
         case GOT_PROJECTS: return {
             ...state,
             projects : action.projects
+        }
+
+        case PROJECT_CREATED : return {
+            ...state,
+            projects : {
+                ...state.projects,
+                [action.project.id] : action.project
+            }
         }
     }
 

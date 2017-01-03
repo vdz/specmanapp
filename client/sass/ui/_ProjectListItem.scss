@@ -1,0 +1,19 @@
+.ProjectListItem {
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    padding-top: $spacer-y;
+    max-height: 110px;
+
+    .description {
+        @include text-truncate;
+        white-space: normal;
+    }
+
+    &:hover {
+        background-color: #f5f5f5;
+
+        .uncoverme {
+            visibility: visible;
+        }
+    }
+}
