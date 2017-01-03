@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ButtonToolbar, DropdownButton, MenuItem } from 'react-bootstrap';
-
 
 export class Head extends React.Component {
     signout() {
@@ -15,21 +13,26 @@ export class Head extends React.Component {
         const { user } = this.props;
 
         return  <section className='Head'>
-                    <div className='container'>
-                        <section className='toolbar row my-0'>
-                            <div className='col-md'>
-                                <img className='logo w-100' src='/images/arh-logo.png' />
+                    <section className='toolbar'>
+                        <img className='logo' src='/images/arh-logo.png' />
+                        <h4 className='title'>SpecMan</h4>
+                        <div className='user'>
+                            <div className="btn-group user-actions" role="group">
+                                <button id="btnGroupDrop1" 
+                                        type="button" 
+                                        className="btn btn-secondary dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {user.first_name}
+                                </button>
+                                <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a className="dropdown-item" href="#" onClick={this.signout}>Sign out</a>
+                                </div>
                             </div>
-                            <h4 className='title col-md-6'>SpecMan</h4>
-                            <div className='user col-md'>
-                                <DropdownButton bsSize="small" title={user.first_name} id="dropdown-size-small">
-                                    <MenuItem onSelect={this.signout}>Sign out</MenuItem>
-                                </DropdownButton>
-                                <img className='avatar rounded-circle'
-                                     src={user.avatar} />
-                            </div>
-                        </section>
-                    </div>
+
+                            <img className='avatar rounded-circle'
+                                 src={user.avatar} />
+                        </div>
+                    </section>
                 </section>;
     }
 }

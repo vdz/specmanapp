@@ -1,24 +1,40 @@
 .Head {
+    height: $toolbar-height;
     width: 100%;
     background-color: #563D7C;
     color: #fff;
 
     .toolbar {
-        padding-top: $spacer-y;
-        padding-bottom: $spacer-y;
+        position: relative;
+    }
+
+    .logo {
+        position: absolute;
+        top: $spacer-y;
+        left: $spacer-x;
+        width: 150px;
     }
 
     .title {
         text-align: center;
-        line-height: 100%;
+        line-height: $toolbar-height;
         color: #fff;
     }
 
     .user {
+        position: absolute;
+        right: $spacer-x;
+        top: $spacer-y;
         text-align: right;
 
+        .user-actions {
+            display: inline-block;
+        }
+
         .avatar {
+            display: inline-block;
             max-height: $toolbar-height - $spacer-y*2;
+            margin-left: $spacer-x;
             border: 2px solid #fff;
         }
     }
