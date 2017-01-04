@@ -11,6 +11,8 @@ import { getRoute, buildRoute } from './client/config/routes.js';
 import { connect as connectRouteListener, routerListener } from './client/helpers/routeListener.js';
 
 import { setUserProfile } from './client/actions/user.actions.js';
+import { getProjects } from './client/actions/data.actions.js';
+
 
 const store = configureStore();
 const app_history = syncHistoryWithStore(history, store);
@@ -32,7 +34,7 @@ function init(options) {
 
     app_history.listen(routerListener);
 
-    store.dispatch(push(buildRoute('projects')));
+    store.dispatch(getProjects());
 
     render(
         <Root store={store} history={app_history} />,

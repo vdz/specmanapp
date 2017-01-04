@@ -25,5 +25,15 @@ module.exports = {
             model : db.Project,
             endpoints : ['/projects', '/projects/:id']
         });
+
+        const sectionResource = epilogue.resource({
+            model : db.Section,
+            endpoints : ['/sections', '/sections/:id'],
+            search: {
+                param: 'project',
+                attributes: [ 'project_id' ]
+            }
+        });
+
     }
 };

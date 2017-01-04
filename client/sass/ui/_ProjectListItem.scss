@@ -2,7 +2,12 @@
     border-bottom: 1px solid #eee;
     cursor: pointer;
     padding-top: $spacer-y;
-    max-height: 110px;
+    max-height: 130px;
+    overflow: hidden;
+
+    .editable {
+        display: block;
+    }
 
     .description {
         @include text-truncate;

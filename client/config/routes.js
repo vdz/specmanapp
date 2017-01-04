@@ -10,7 +10,7 @@ export const default_routes = {
     base : '/',
     projects : '/projects',
     project : '/project/:id',
-    sections : '/project/:id/sections',
+    //sections : '/project/:id/sections',
     section : '/project/:id/section/:sectionId',
     locations : '/project/:id/locations',
     types : '/project/:id/section/:sectionId/types',
@@ -39,9 +39,9 @@ export function buildRoute(name, args) {
 
 export default () => {
     return  <Route>
-                <Route path={routes.base} component={App}>
-                    <Route path={routes.projects} component={Projects} />
-                    <Route path={routes.sections} component={Sections} />
+                <Route component={App}>
+                    <Route path={routes.base} component={Projects} />
+                    <Route path={routes.project} component={Sections} />
                 </Route>
             </Route>;
 }

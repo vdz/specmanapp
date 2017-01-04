@@ -1,9 +1,9 @@
 import React from 'react';
 import InlineEdit from 'react-edit-inline';
 
-export class ProjectListItem extends React.Component {
+export class SectionListItem extends React.Component {
     save(params) {
-        const { id } = this.props.project;
+        const { id } = this.props.section;
         this.props.update({
             id,
             ...params
@@ -11,56 +11,48 @@ export class ProjectListItem extends React.Component {
     }
 
     ['delete']() {
-        const { id } = this.props.project;
+        const { id } = this.props.section;
         this.props.delete(id);
     }
 
     choose() {
-        const { id } = this.props.project;
+        const { id } = this.props.section;
         this.props.manage(id);
     }
 
+    newSpec() {
+
+    }
+
     render() {
-        const { project } = this.props;
-        return  <section className='ProjectListItem row'>
+        const { section } = this.props;
+        return  <section className='SectionListItem row'
+                         onClick={() => this.choose()}>
                     <div className='col-md-4'>
-                        <InlineEdit text={project.name}
+                        <InlineEdit text={section.name}
                                     paramName='name'
                                     className='editable'
                                     change={(params) => this.save(params)}
                                     activeClassName='form-control'
+                                    stopPropagation={true}
                                     staticElement='h6' />
-                        <p>
-                            <InlineEdit text={project.address}
-                                        paramName='address'
-                                        className='editable'
-                                        staticElement='small'
-                                        change={(params) => this.save(params)}
-                                        activeClassName='form-control form-control-sm' />
-
-                            <InlineEdit text={project.client}
-                                        paramName='client'
-                                        className='editable'
-                                        staticElement='small'
-                                        change={(params) => this.save(params)}
-                                        activeClassName='form-control form-control-sm' />
-                        </p>
                     </div>
                     <div className='col-md description uncoverme'>
                         <p>
-                            <InlineEdit text={project.description}
+                            <InlineEdit text={section.description}
                                         paramName='description'
                                         className='editable'
                                         staticElement='small'
                                         editingElement='textarea'
                                         change={(params) => this.save(params)}
+                                        stopPropagation={true}
                                         activeClassName='form-control form-control-sm h-100' />
                         </p>
                     </div>
                     <div className='col-md-3 controls uncoverme'
-                         onClick={() => this.choose()}>
+                         onClick={() => this.newSpec()}>
                         <button className='btn btn-primary'>
-                            Manage
+                            New spec
                         </button>
                         <button className='btn btn-link text-danger'
                                 onClick={() => this.delete()}>

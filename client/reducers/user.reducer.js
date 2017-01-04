@@ -1,14 +1,12 @@
 import { SET_USER_PROFILE } from  '../actions/user.actions.js';
 
 export const default_state = {
-    user : {
-        first_name : '',
-        last_name : '',
-        full_name : '',
-        avatar : '',
-        email : '',
-        id_token : ''
-    }
+    first_name : '',
+    last_name : '',
+    full_name : '',
+    avatar : '',
+    email : '',
+    id_token : ''
 };
 
 export function reducer(state = default_state, action) {

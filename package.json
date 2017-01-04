@@ -46,6 +46,7 @@
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "react": "^15.2.0",
+    "react-edit-inline": "https://github.com/vdz/ReactInlineEdit.git",
     "react-dom": "^15.2.0",
     "react-dropzone": "^3.5.3",
     "react-redux": "^4.4.5",
