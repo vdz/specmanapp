@@ -35,5 +35,23 @@ module.exports = {
             }
         });
 
+        const locationResource = epilogue.resource({
+            model : db.Location,
+            endpoints : ['/locations', '/locations/:id'],
+            search: {
+                param: 'project',
+                attributes: [ 'project_id' ]
+            }
+        });
+
+        const typeResource = epilogue.resource({
+            model : db.Type,
+            endpoints : ['/types', '/types/:id'],
+            search: {
+                param: 'section',
+                attributes: [ 'section_id' ]
+            }
+        });
+
     }
 };

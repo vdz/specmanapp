@@ -4,7 +4,8 @@ import { Options } from '../helpers/mixins.js';
 
 import { App } from '../containers/App.js';
 import Projects from '../components/Projects.js';
-import Sections from '../components/Sections';
+import Sections from '../components/Sections.js';
+import Types from '../components/Types.js';
 
 export const default_routes = {
     base : '/',
@@ -42,6 +43,7 @@ export default () => {
                 <Route component={App}>
                     <Route path={routes.base} component={Projects} />
                     <Route path={routes.project} component={Sections} />
+                    <Route path={routes.section} component={Types} />
                 </Route>
             </Route>;
 }

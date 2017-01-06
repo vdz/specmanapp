@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { SectionListItem as ListItem } from './SectionListItem.js';
-import { updateSection as updateItem, deleteSection as deleteItem } from '../actions/data.actions.js';
-import { buildRoute } from '../config/routes.js';
+import { TypeListItem as ListItem } from './TypeListItem.js';
+import { updateType as updateItem, deleteType as deleteItem } from '../actions/data.actions.js';
+import { setType } from '../actions/current.actions.js';
 import { push } from 'react-router-redux';
 
-export class SectionList extends React.Component {
+export class TypeList extends React.Component {
 
     save(params) {
         if (!params || !params.id) return;
@@ -20,17 +20,14 @@ export class SectionList extends React.Component {
 
     manage(id) {
         if (!id) return;
-        this.props.push(buildRoute('section', {
-            id : this.props.items[id].project_id,
-            sectionId : id
-        }));
+        this.props.setType(this.props.items[id]);
     }
     
     getItems() {
         const { items } = this.props;
         let result = [];
         Object.keys(items).map((id) => {
-            result.push(<ListItem key={`section-item-${id}`}
+            result.push(<ListItem key={'type-item-' + id}
                                          update={(params) => this.save(params)}
                                          delete={(params) => this.delete(params)}
                                          manage={(params) => this.manage(params)}
@@ -44,7 +41,7 @@ export class SectionList extends React.Component {
 
         const list = this.getItems();
 
-        return  <section className='SectionList'>
+        return  <section className='TypeList'>
                     { list }
                 </section>
     }
@@ -53,12 +50,13 @@ export class SectionList extends React.Component {
 
 export function mapStateToProps(state) {
     return {
-        items : state.data.sections
+        items : state.data.types
     }
 }
 
 export default connect(mapStateToProps, {
     updateItem,
     deleteItem,
+    setType,
     push
-})(SectionList);
+})(TypeList);

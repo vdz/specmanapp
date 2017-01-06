@@ -1,7 +1,7 @@
 import React from 'react';
 import InlineEdit from 'react-edit-inline';
 
-export class SectionListItem extends React.Component {
+export class LocationListItem extends React.Component {
     save(params) {
         const { id } = this.props.item;
         this.props.update({
@@ -27,7 +27,7 @@ export class SectionListItem extends React.Component {
 
     render() {
         const { item } = this.props;
-        return  <section className='SectionListItem row'
+        return  <section className='LocationListItem row'
                          onClick={() => this.choose()}>
                     <div className='col-md'>
                         <InlineEdit text={item.name}
@@ -37,10 +37,10 @@ export class SectionListItem extends React.Component {
                                     activeClassName='form-control'
                                     stopPropagation={true}
                                     staticElement='h6' />
-                        <p className='description uncoverme'>
+                        <p className="uncoverme">
                             <InlineEdit text={item.description}
-                                        paramName='description'
                                         placeholder='Description'
+                                        paramName='description'
                                         className='editable'
                                         staticElement='small'
                                         editingElement='input'
@@ -49,7 +49,7 @@ export class SectionListItem extends React.Component {
                                         activeClassName='form-control form-control-sm' />
                         </p>
                     </div>
-                    <div className='col-md-3 controls uncoverme'
+                    <div className='col-md controls uncoverme'
                          onClick={(e) => {
                             this.newSpec();
                             e.stopPropagation();

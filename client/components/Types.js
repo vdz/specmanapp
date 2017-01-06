@@ -1,25 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { NewSectionCompact } from './NewSectionCompact.js';
+import { NewTypeCompact } from './NewTypeCompact.js';
 import { NewLocationCompact } from './NewLocationCompact.js';
-import SectionList from './SectionList.js';
+import TypeList from './TypeList.js';
 import LocationList from './LocationList.js';
-import { createSection, createLocation } from '../actions/data.actions.js';
+import { createType, createLocation } from '../actions/data.actions.js';
 
-export class Sections extends React.Component {
+export class Types extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            show_new_section_form : false,
+            show_new_type_form : false,
             show_new_location_form : false
         }
     }
 
-    newSection(params) {
-        params.project_id = this.props.current.project.id;
-        this.props.createSection(params);
+    newType(params) {
+        params.section_id = this.props.current.section.id;
+        this.props.createType(params);
     }
 
     newLocation(params) {
@@ -35,12 +35,12 @@ export class Sections extends React.Component {
     }
 
     render() {
-        const new_section = (this.state.show_new_section_form)
-            ? <NewSectionCompact save={(params) => this.newSection(params)}
-                                 cancel={() => this.toggleNewForm('section')} />
+        const new_type = (this.state.show_new_type_form)
+            ? <NewTypeCompact save={(params) => this.newType(params)}
+                                 cancel={() => this.toggleNewForm('type')} />
             : <button type="button"
                       className="btn btn-secondary"
-                      onClick={() => this.toggleNewForm('section')}>
+                      onClick={() => this.toggleNewForm('type')}>
             <i className="fa fa-plus fa-2" aria-hidden="true"></i>&nbsp;
             New section
         </button>;
@@ -55,15 +55,15 @@ export class Sections extends React.Component {
             New Location
         </button>;
 
-        return  <section className='Items container'>
+        return  <section className='Types container'>
                     <div className='row'>
                         <section className='data-wrapper sections col-md'>
                             <div className='row'>
                                 <h3 className='col-md'>
-                                    Items
+                                    Types
                                 </h3>
                                 <p className='col-md text-muted'>
-                                    Create and manage your sections here
+                                    Create and manage your {this.props.current.section.name} types here
                                 </p>
                             </div>
                             <div className='row'>
@@ -72,11 +72,11 @@ export class Sections extends React.Component {
                                 </p>
                             </div>
 
-                            <SectionList />
+                            <TypeList />
 
                             <div className='row'>
                                 <div className='col-md py-1'>
-                                    { new_section }
+                                    { new_type }
                                 </div>
                             </div>
                         </section>
@@ -111,15 +111,15 @@ export class Sections extends React.Component {
 
 export function mapStateToProps(state) {
     return {
-        sections : state.data.sections,
+        types : state.data.types,
         locations : state.data.locations,
         current : state.current
     }
 }
 
 export default connect(mapStateToProps, {
-    createSection,
+    createType,
     createLocation
-})(Sections);
+})(Types);
 
 

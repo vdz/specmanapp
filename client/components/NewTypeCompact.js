@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export class NewProjectCompact extends React.Component {
+export class NewTypeCompact extends React.Component {
 
     save() {
         let name = this.refs.name,
-            description = this.refs.description,
-            client = this.refs.client,
-            address = this.refs.address;
+            description = this.refs.description;
 
         if (!name.value) {
             const name_el = ReactDOM.findDOMNode(name);
@@ -19,9 +17,7 @@ export class NewProjectCompact extends React.Component {
 
         this.props.save({
             name : name.value,
-            description : description.value,
-            client : client.value,
-            address : address.value
+            description : description.value
         });
 
         this.props.cancel();
@@ -32,11 +28,11 @@ export class NewProjectCompact extends React.Component {
     }
 
     render() {
-        return  <section className='NewProjectCompact container'>
+        return  <section className='NewTypeCompact container'>
                     <form>
                         <div className="form-group row">
                             <div className="offset-sm-2 col-sm-10">
-                                <h3 className='display-6'>Create new project</h3>
+                                <h3 className='display-6'>Create new location</h3>
                             </div>
                         </div>
                         <div ref='group'
@@ -45,7 +41,7 @@ export class NewProjectCompact extends React.Component {
                             <div className="col-sm-10">
                                 <input type="text" 
                                        ref='name'
-                                       className="form-control" id="inputName" placeholder="Project name" />
+                                       className="form-control" id="inputName" placeholder="Type name" />
                             </div>
                         </div>
                         <div className="form-group row">
@@ -54,22 +50,6 @@ export class NewProjectCompact extends React.Component {
                                 <input type="text"
                                        ref="description"
                                        className="form-control" id="inputDescription" placeholder="Description" />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="inputClient" className="col-sm-2 col-form-label">Client info</label>
-                            <div className="col-sm-10">
-                                <input type="text" 
-                                       ref="client"
-                                       className="form-control" id="inputClient" placeholder="Client info" />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="inputAddress" className="col-sm-2 col-form-label">Address</label>
-                            <div className="col-sm-10">
-                                <input type="text"
-                                       ref="address"
-                                       className="form-control" id="inputAddress" placeholder="Address" />
                             </div>
                         </div>
                         <div className="form-group row">

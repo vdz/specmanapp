@@ -9,6 +9,7 @@ export const UPDATE_PROJECT         = 'update project';
 export const PROJECT_UPDATED        = 'project updated';
 export const DELETE_PROJECT         = 'delete project';
 export const PROJECT_DELETED        = 'project deleted';
+export const RESET_PROJECTS         = 'reset projects';
 
 export const GET_SECTIONS           = 'get sections';
 export const GOT_SECTIONS           = 'got sections';
@@ -18,6 +19,21 @@ export const UPDATE_SECTION         = 'update section';
 export const SECTION_UPDATED        = 'section updated';
 export const DELETE_SECTION         = 'delete section';
 export const SECTION_DELETED        = 'section deleted';
+export const RESET_SECTIONS         = 'reset sections';
+
+export const GET_LOCATIONS          = 'get locations';
+export const GOT_LOCATIONS          = 'got locations';
+export const CREATE_LOCATION        = 'create location';
+export const LOCATION_CREATED       = 'location created';
+export const UPDATE_LOCATION        = 'update location';
+export const LOCATION_UPDATED       = 'location updated';
+export const DELETE_LOCATION        = 'delete location';
+export const LOCATION_DELETED       = 'location deleted';
+export const RESET_LOCATIONS        = 'reset locations';
+
+export const GET_TYPES              = 'get types';
+export const GOT_TYPES              = 'got types';
+export const RESET_TYPES            = 'reset types';
 
 
 
@@ -38,7 +54,7 @@ export function getProjects() {
 
             dispatch({
                 type : GOT_PROJECTS,
-                projects : arrayToHash(data)
+                data : arrayToHash(data)
             });
         }).catch((err) => {
             console.error('Augh, there was an error!', err.statusText);
@@ -65,7 +81,7 @@ export function createProject(params) {
 
             dispatch({
                 type : PROJECT_CREATED,
-                project : data
+                data
             });
         }).catch((err) => {
             console.error('Augh, there was an error!', err.statusText);
@@ -95,7 +111,7 @@ export function updateProject(params) {
 
             dispatch({
                 type : PROJECT_UPDATED,
-                project : data
+                data
             });
         }).catch((err) => {
             console.error('Augh, there was an error!', err.statusText);
@@ -127,6 +143,13 @@ export function deleteProject(id) {
     
 }
 
+export function resetProjects() {
+    return {
+        type : RESET_PROJECTS
+    }
+}
+
+
 export function getSections(project_id) {
     return (dispatch) => {
         dispatch({
@@ -148,7 +171,7 @@ export function getSections(project_id) {
 
             dispatch({
                 type : GOT_SECTIONS,
-                sections : arrayToHash(data)
+                data : arrayToHash(data)
             });
         }).catch((err) => {
             console.error('Augh, there was an error!', err);
@@ -179,7 +202,7 @@ export function createSection(params) {
 
             dispatch({
                 type : SECTION_CREATED,
-                section : data
+                data
             });
         }).catch((err) => {
             console.error('Augh, there was an error!', err);
@@ -209,7 +232,7 @@ export function updateSection(params) {
 
             dispatch({
                 type : SECTION_UPDATED,
-                section : data
+                data
             });
         }).catch((err) => {
             console.error('Augh, there was an error!', err);
@@ -239,4 +262,268 @@ export function deleteSection(id) {
         });
     }
 
+}
+
+export function resetSections() {
+    return {
+        type : RESET_SECTIONS
+    }
+}
+
+
+export function getLocations(project_id) {
+    const type = 'locations';
+
+    return (dispatch) => {
+        dispatch({
+            type:  GET_LOCATIONS
+        });
+
+        const url = project_id
+            ? `/${type}?project_id=${project_id}`
+            : '/${type}';
+
+        apiDo({
+            method : 'get',
+            url
+        }).then((res) => {
+            console.log('getLocations', res);
+
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            dispatch({
+                type : GOT_LOCATIONS,
+                data : arrayToHash(data)
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+}
+
+export function createLocation(params) {
+    const type = 'locations';
+
+    return (dispatch, getState) => {
+        dispatch({
+            type : CREATE_LOCATION,
+            location : {...params}
+        });
+
+        const curr_project_id = getState().current.project.id;
+
+        apiDo({
+            method : 'post',
+            url : `/${type}`,
+            params
+        }).then((res) => {
+            console.log('createLocation', res);
+
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            if (curr_project_id != data.project_id) return;
+
+            dispatch({
+                type : LOCATION_CREATED,
+                data
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+}
+
+export function updateLocation(params) {
+    const type = 'locations';
+
+    return (dispatch) => {
+        dispatch({
+            type : UPDATE_LOCATION,
+            update : {...params}
+        });
+
+        let payload = {...params};
+        delete payload.id;
+
+        apiDo({
+            method : 'put',
+            url : `/${type}/${params.id}`,
+            params
+        }).then((res) => {
+            console.log('updateSection', res);
+
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            dispatch({
+                type : LOCATION_UPDATED,
+                data
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+}
+
+export function deleteLocation(id) {
+    const type = 'locations';
+
+    return (dispatch) => {
+        dispatch({
+            type : DELETE_LOCATION,
+            id
+        });
+
+        apiDo({
+            method : 'delete',
+            url : `/${type}/${id}`
+        }).then((res) => {
+            console.log('deleteLocation', res);
+
+            dispatch({
+                type : LOCATION_DELETED,
+                id
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+
+}
+
+export function resetLocations() {
+    return {
+        type : RESET_LOCATIONS
+    }
+}
+
+
+export function getTypes(section_id) {
+    const type = 'types';
+
+    return (dispatch) => {
+        dispatch({
+            type:  GET_TYPES
+        });
+
+        const url = section_id
+            ? `/${type}?section_id=${section_id}`
+            : '/${type}';
+
+        apiDo({
+            method : 'get',
+            url
+        }).then((res) => {
+            console.log('getTypes', res);
+
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            dispatch({
+                type : GOT_TYPES,
+                data : arrayToHash(data)
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+}
+
+export function createType(params) {
+    const type = 'types';
+
+    return (dispatch, getState) => {
+        dispatch({
+            type : CREATE_TYPE,
+            location : {...params}
+        });
+
+        const curr_section_id = getState().current.section.id;
+
+        apiDo({
+            method : 'post',
+            url : `/${type}`,
+            params
+        }).then((res) => {
+            console.log('createTypes', res);
+
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            if (curr_section_id != data.section_id) return;
+
+            dispatch({
+                type : TYPE_CREATED,
+                data
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+}
+
+export function updateType(params) {
+    const type = 'types';
+
+    return (dispatch) => {
+        dispatch({
+            type : UPDATE_TYPE,
+            update : {...params}
+        });
+
+        let payload = {...params};
+        delete payload.id;
+        
+        apiDo({
+            method : 'put',
+            url : `/${type}/${params.id}`,
+            params
+        }).then((res) => {
+            console.log('updateType', res);
+
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            dispatch({
+                type : TYPE_UPDATED,
+                data
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+}
+
+export function deleteType(id) {
+    const type = 'types';
+
+    return (dispatch) => {
+        dispatch({
+            type : DELETE_TYPE,
+            id
+        });
+
+        apiDo({
+            method : 'delete',
+            url : `/${type}/${id}`
+        }).then((res) => {
+            console.log('deleteType', res);
+
+            dispatch({
+                type : TYPE_DELETED,
+                id
+            });
+        }).catch((err) => {
+            console.error('Augh, there was an error!', err);
+        });
+    }
+
+}
+
+export function resetTypes() {
+    return {
+        type : RESET_TYPES
+    }
 }

@@ -22,6 +22,10 @@ export class NewSectionCompact extends React.Component {
 
         this.props.cancel();
     }
+
+    componentDidMount() {
+        ReactDOM.findDOMNode(this.refs.name).focus();
+    }
     
     render() {
         return  <section className='NewSectionCompact container'>

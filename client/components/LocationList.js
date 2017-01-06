@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { SectionListItem as ListItem } from './SectionListItem.js';
-import { updateSection as updateItem, deleteSection as deleteItem } from '../actions/data.actions.js';
-import { buildRoute } from '../config/routes.js';
+import { LocationListItem as ListItem } from './LocationListItem.js';
+import { updateLocation as updateItem, deleteLocation as deleteItem } from '../actions/data.actions.js';
+import { setLocation } from '../actions/current.actions.js';
 import { push } from 'react-router-redux';
 
 export class SectionList extends React.Component {
@@ -20,17 +20,14 @@ export class SectionList extends React.Component {
 
     manage(id) {
         if (!id) return;
-        this.props.push(buildRoute('section', {
-            id : this.props.items[id].project_id,
-            sectionId : id
-        }));
+        this.props.setLocation(this.props.items[id]);
     }
     
     getItems() {
         const { items } = this.props;
         let result = [];
         Object.keys(items).map((id) => {
-            result.push(<ListItem key={`section-item-${id}`}
+            result.push(<ListItem key={'location-item-' + id}
                                          update={(params) => this.save(params)}
                                          delete={(params) => this.delete(params)}
                                          manage={(params) => this.manage(params)}
@@ -44,7 +41,7 @@ export class SectionList extends React.Component {
 
         const list = this.getItems();
 
-        return  <section className='SectionList'>
+        return  <section className='LocationList'>
                     { list }
                 </section>
     }
@@ -53,12 +50,13 @@ export class SectionList extends React.Component {
 
 export function mapStateToProps(state) {
     return {
-        items : state.data.sections
+        items : state.data.locations
     }
 }
 
 export default connect(mapStateToProps, {
     updateItem,
     deleteItem,
+    setLocation,
     push
 })(SectionList);
