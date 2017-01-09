@@ -1,10 +1,7 @@
 import {
-    getSections,
-    getLocations,
     getTypes,
-    resetSections,
-    resetLocations,
-    resetTypes,
+    getSpecs,
+    resetSpecs
 } from './data.actions.js';
 
 export const SET_CURRENT_PROJECT            = 'set current project';
@@ -20,11 +17,9 @@ export function setProject(item = {}) {
         });
 
         if (Object.keys(item).length) {
-            dispatch(getSections(item.id));
-            dispatch(getLocations(item.id));
+            dispatch(getSpecs(item.id));
         } else {
-            dispatch(resetSections());
-            dispatch(resetLocations());
+            dispatch(resetSpecs());
         }
     }
 }
@@ -36,11 +31,7 @@ export function setSection(item = {}) {
             item
         });
 
-        if (Object.keys(item).length) {
-            dispatch(getTypes(item.id));
-        } else {
-            dispatch(resetTypes());
-        }
+        dispatch(getTypes(item.id));
     }
 }
 

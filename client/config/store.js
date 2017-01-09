@@ -7,11 +7,11 @@ import { appReducer, default_state } from '../reducers/index.reducer.js';
 import history from '../config/history.js';
 
 const createStoreWithMiddleware = compose(
-    applyMiddleware(thunk),
-    applyMiddleware(createLogger({
-        collapsed: true
-    })),
-    applyMiddleware(routerMiddleware(history)),
+    applyMiddleware(
+        thunk,
+        routerMiddleware(history),
+        createLogger({ collapsed: true })
+    )
 )(createStore);
 
 export default function configureStore(initialState = default_state) {

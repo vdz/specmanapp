@@ -50,7 +50,7 @@ export class TypeList extends React.Component {
 
 export function mapStateToProps(state) {
     return {
-        items : state.data.types
+        items : state.current.section.types
     }
 }
 

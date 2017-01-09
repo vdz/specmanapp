@@ -11,8 +11,8 @@ export class TypeListItem extends React.Component {
     }
 
     ['delete']() {
-        const { id } = this.props.item;
-        this.props.delete(id);
+        const { item } = this.props;
+        this.props.delete(item);
 
     }
 

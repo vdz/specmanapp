@@ -20,7 +20,9 @@ export class ProjectList extends React.Component {
 
     manage(id) {
         if (!id) return;
-        this.props.push(buildRoute('project', { id }))
+        this.props.push(buildRoute('sections', {
+            id
+        }))
     }
     
     getProjectItems() {

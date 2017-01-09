@@ -20,9 +20,11 @@ export function routerListener(location) {
 
     current_pathname = location.pathname;
     // url handlers
-    handleBase(location)
+    handleBase(location);
     handleProject(location);
+    handleSections(location);
     handleSection(location);
+    handleNewSpec(location);
 }
 
 // URL Handlers
@@ -49,7 +51,7 @@ function handleProject(location) {
     const params = pattern.match(location.pathname);
     
     if (params) {
-        getProjectData(params, (obj) => store.dispatch(setProject(obj)));
+        getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
         return true;
     }
 
@@ -57,6 +59,32 @@ function handleProject(location) {
 }
 
 // URL Handlers
+function handleSections(location) {
+    const pattern = new UrlPattern(getRoute('sections'));
+    const params = pattern.match(location.pathname);
+
+    if (params) {
+        getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
+        return true;
+    }
+
+    return false;
+}
+
+// URL Handlers
+function handleNewSpec(location) {
+    const pattern = new UrlPattern(getRoute('new_spec'));
+    const params = pattern.match(location.pathname);
+
+    if (params) {
+        getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
+        return true;
+    }
+
+    return false;
+}
+
+
 function handleSection(location) {
     const pattern = new UrlPattern(getRoute('section'));
     const params = pattern.match(location.pathname);
@@ -77,7 +105,6 @@ function getProjectData(params, payload) {
 
     if (!project || project.id != project_id) {
         if (!Object.keys(projects).length) {
-            // TODO: REFACTOR!!!
             let unsub = store.subscribe(() => subForProjects(project_id, payload, unsub));
         } else {
             project = projects[project_id];
@@ -94,7 +121,6 @@ function getSectionData(params, payload) {
 
     if (!section || section.id != section_id) {
         if (!Object.keys(sections).length) {
-            // TODO: REFACTOR!!!
             let unsub = store.subscribe(() => subForSections(section_id, payload, unsub));
         } else {
             section = sections[section_id];

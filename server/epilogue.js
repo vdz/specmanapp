@@ -29,19 +29,11 @@ module.exports = {
         const sectionResource = epilogue.resource({
             model : db.Section,
             endpoints : ['/sections', '/sections/:id'],
-            search: {
-                param: 'project',
-                attributes: [ 'project_id' ]
-            }
         });
 
         const locationResource = epilogue.resource({
             model : db.Location,
             endpoints : ['/locations', '/locations/:id'],
-            search: {
-                param: 'project',
-                attributes: [ 'project_id' ]
-            }
         });
 
         const typeResource = epilogue.resource({
@@ -53,5 +45,13 @@ module.exports = {
             }
         });
 
+        const specResource = epilogue.resource({
+            model : db.Spec,
+            endpoints : ['/specs', '/specs/:id'],
+            search: {
+                param: 'project',
+                attributes: [ 'project_id' ]
+            }
+        });
     }
 };

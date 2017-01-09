@@ -6,7 +6,10 @@ module.exports =  function(sequelize, DataTypes) {
         description     : DataTypes.TEXT,
         client          : DataTypes.STRING,
         address         : DataTypes.STRING,
-        is_signed       : DataTypes.BOOLEAN
+        is_signed       : {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
     }, {
         underscored : true
     });

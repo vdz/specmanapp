@@ -5,3 +5,9 @@
 .uncoverme {
     visibility: hidden;
 }
+
+.border-bottom-1 {
+    padding-bottom: $spacer-y;
+    margin-bottom: $spacer-y;
+    border-bottom: 1px solid #eee;
+}

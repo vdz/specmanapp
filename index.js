@@ -7,11 +7,10 @@ import configureStore from './client/config/store.js';
 import { syncHistoryWithStore } from 'react-router-redux'
 import history from './client/config/history.js';
 import { config } from './client/config/config.js';
-import { getRoute, buildRoute } from './client/config/routes.js';
 import { connect as connectRouteListener, routerListener } from './client/helpers/routeListener.js';
 
 import { setUserProfile } from './client/actions/user.actions.js';
-import { getProjects } from './client/actions/data.actions.js';
+import { getGlobalData } from './client/actions/data.actions.js';
 
 
 const store = configureStore();
@@ -34,7 +33,7 @@ function init(options) {
 
     app_history.listen(routerListener);
 
-    store.dispatch(getProjects());
+    store.dispatch(getGlobalData());
 
     render(
         <Root store={store} history={app_history} />,
@@ -43,3 +42,4 @@ function init(options) {
 }
 
 window.init = init;
+window.set_user = (user) => store.dispatch(setUserProfile(user));

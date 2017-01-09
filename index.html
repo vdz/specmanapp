@@ -16,7 +16,6 @@
             margin-top: -45px;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="/css/styles.css" />
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
@@ -24,15 +23,16 @@
     <section id="signin" class='SignIn'>
         <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     </section>
-    <script>
-        function onSignIn(googleUser) {
-            window.init({
-                target : 'app',
-                user : googleUser
-            });
-        };
-    </script>
     <div id="app"></div>
     <script src="/js/index.js"></script>
+    <script>
+        window.init({
+            target : 'app',
+            //user : googleUser
+        });
+        function onSignIn(googleUser) {
+            window.set_user(googleUser);
+        };
+    </script>
 </body>
 </html>

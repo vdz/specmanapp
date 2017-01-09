@@ -1,5 +1,5 @@
-export function arrayToHash(arr) {
+export function arrayToHash(arr, prop = 'id') {
     let hash = {};
-    arr.forEach( (item) => { hash[item.id] = item });
+    arr.forEach( (item) => { hash[item[prop]] = item });
     return hash;
 }

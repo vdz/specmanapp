@@ -30,11 +30,10 @@ Object.keys(db).forEach(function(modelName) {
 });
 
 // Associations
-db.Section.belongsTo(db.Project);
-db.Location.belongsTo(db.Project);
+db.Project.hasMany(db.Spec);
 db.File.belongsTo(db.Project);
 db.Type.belongsTo(db.Section);
-db.Section.hasMany(db.Spec);
+db.Spec.belongsTo(db.Section);
 db.Spec.belongsTo(db.Location);
 db.Spec.belongsTo(db.Type);
 db.Field.belongsTo(db.Spec);
@@ -44,6 +43,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //_ sync for first run only
-//_ sequelize.sync();
+sequelize.sync();
 
 module.exports = db;

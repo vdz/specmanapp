@@ -5,17 +5,20 @@ import { Options } from '../helpers/mixins.js';
 import { App } from '../containers/App.js';
 import Projects from '../components/Projects.js';
 import Sections from '../components/Sections.js';
+import Locations from '../components/Locations.js';
 import Types from '../components/Types.js';
+import NewSpec from '../components/NewSpec.js';
 
 export const default_routes = {
     base : '/',
     projects : '/projects',
     project : '/project/:id',
-    //sections : '/project/:id/sections',
+    sections : '/project/:id/sections',
     section : '/project/:id/section/:sectionId',
     locations : '/project/:id/locations',
     types : '/project/:id/section/:sectionId/types',
-    spec : '/project/:id/section/:sectionId/spec/:specId'
+    spec : '/project/:id/spec/:specId',
+    new_spec : '/project/:id/spec'
 };
 
 let routes = {...default_routes};
@@ -43,7 +46,10 @@ export default () => {
                 <Route component={App}>
                     <Route path={routes.base} component={Projects} />
                     <Route path={routes.project} component={Sections} />
+                    <Route path={routes.sections} component={Sections} />
+                    <Route path={routes.locations} component={Locations} />
                     <Route path={routes.section} component={Types} />
+                    <Route path={routes.new_spec} component={NewSpec} />
                 </Route>
             </Route>;
 }

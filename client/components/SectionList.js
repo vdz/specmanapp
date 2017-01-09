@@ -21,7 +21,7 @@ export class SectionList extends React.Component {
     manage(id) {
         if (!id) return;
         this.props.push(buildRoute('section', {
-            id : this.props.items[id].project_id,
+            id : this.props.project.id,
             sectionId : id
         }));
     }
@@ -53,6 +53,7 @@ export class SectionList extends React.Component {
 
 export function mapStateToProps(state) {
     return {
+        project : state.current.project,
         items : state.data.sections
     }
 }

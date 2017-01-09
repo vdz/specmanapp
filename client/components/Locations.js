@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { NewTypeCompact } from './NewTypeCompact.js';
-import TypeList from './TypeList.js';
-import { createType } from '../actions/data.actions.js';
+import { NewLocationCompact } from './NewLocationCompact.js';
+import LocationList from './LocationList.js';
+import { createLocation } from '../actions/data.actions.js';
 
-export class Types extends React.Component {
+export class Locations extends React.Component {
     constructor(props) {
         super(props);
 
@@ -14,9 +14,8 @@ export class Types extends React.Component {
         }
     }
 
-    newType(params) {
-        params.section_id = this.props.current.section.id;
-        this.props.createType(params);
+    newLocation(params) {
+        this.props.createLocation(params);
     }
 
     toggleNewForm() {
@@ -26,25 +25,25 @@ export class Types extends React.Component {
     }
 
     render() {
-        const new_type = (this.state.show_new_form)
-            ? <NewTypeCompact save={(params) => this.newType(params)}
+        const new_location = (this.state.show_new_form)
+            ? <NewLocationCompact save={(params) => this.newLocation(params)}
                                  cancel={() => this.toggleNewForm()} />
             : <button type="button"
                       className="btn btn-secondary"
                       onClick={() => this.toggleNewForm()}>
             <i className="fa fa-plus fa-2" aria-hidden="true"></i>&nbsp;
-            New section
+            New Location
         </button>;
 
-        return  <section className='Types container'>
+        return  <section className='Locations container'>
                     <div className='row'>
                         <section className='data-wrapper col-md'>
                             <div className='row'>
                                 <h3 className='col-md'>
-                                    Types
+                                    Locations
                                 </h3>
                                 <p className='col-md text-muted'>
-                                    Create and manage your {this.props.current.section.name} types here
+                                    Create and manage your sections here
                                 </p>
                             </div>
                             <div className='row'>
@@ -53,11 +52,11 @@ export class Types extends React.Component {
                                 </p>
                             </div>
 
-                            <TypeList />
+                            <LocationList />
 
                             <div className='row'>
                                 <div className='col-md py-1'>
-                                    { new_type }
+                                    { new_location }
                                 </div>
                             </div>
                         </section>
@@ -68,13 +67,12 @@ export class Types extends React.Component {
 
 export function mapStateToProps(state) {
     return {
-        types : state.data.types,
-        current : state.current
+        locations : state.data.locations
     }
 }
 
 export default connect(mapStateToProps, {
-    createType
-})(Types);
+    createLocation
+})(Locations);
 
 
