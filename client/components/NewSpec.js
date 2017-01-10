@@ -20,22 +20,23 @@ export class NewSpec extends React.Component {
                 name : '',
                 description : '',
                 project_id : project.id,
-                section_id : section.id || null,
-                type_id : type.id || null,
-                location_id : location.id || null
+                section_id : section.id,
+                type_id : type.id,
+                location_id : location.id
             }
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            ...this.state,
-            spec : {
-                ...this.state.spec,
-                project_id: nextProps.current.project.id
-            }
-        });
-
+        if (this.props.current.project != nextProps.current.project) {
+            this.setState({
+                ...this.state,
+                spec : {
+                    ...this.state.spec,
+                    project_id: nextProps.current.project.id
+                }
+            });
+        }
     }
 
     select(type, e) {
@@ -51,13 +52,13 @@ export class NewSpec extends React.Component {
     }
 
     save(params) {
-        this.setState({
+        this.state = {
             ...this.state,
             spec : {
                 ...this.state.spec,
                 ...params
             }
-        });
+        };
     }
 
     createNew() {
