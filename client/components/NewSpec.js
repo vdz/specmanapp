@@ -2,6 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import InlineEdit from 'react-edit-inline';
 
+import {
+    setSection,
+    setLocation,
+    setType
+} from '../actions/current.actions.js';
+import { createSpec } from '../actions/data.actions.js';
+
 export class NewSpec extends React.Component {
     constructor(props) {
         super(props);
@@ -20,14 +27,46 @@ export class NewSpec extends React.Component {
         }
     }
 
-    select(type, params) {
-        console.log(type, params);
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            ...this.state,
+            spec : {
+                ...this.state.spec,
+                project_id: nextProps.current.project.id
+            }
+        });
+
+    }
+
+    select(type, e) {
+        const id = e.target.value * 1;
+        const item = (type == 'type')
+            ? this.props.current.section.types[id]
+            : this.props.data[type+'s'][id];
+        this.props['set_'+type](item);
+
+        this.save({
+            [type + '_id'] : id
+        });
     }
 
     save(params) {
-        console.log(params)
+        this.setState({
+            ...this.state,
+            spec : {
+                ...this.state.spec,
+                ...params
+            }
+        });
     }
 
+    createNew() {
+        const { spec } = this.state;
+        if (spec.name && (spec.location_id || spec.section_id)) {
+            this.props.createSpec(this.state.spec);
+        }
+    }
+    
     getCombo(type) {
         let list = [];
         const items = (type == 'type')
@@ -42,7 +81,7 @@ export class NewSpec extends React.Component {
         });
         return  <select className='form-control'
                         value={current ? current.id : 0}
-                        onSelect={(params)=>this.select(type, params)}>
+                        onChange={(params)=>this.select(type, params)}>
                     <option value='0' key={type+'s-combo-default'}>
                         {type.toUpperCase()}
                     </option>
@@ -66,6 +105,7 @@ export class NewSpec extends React.Component {
                             <div className="col-sm-5">
                                 <InlineEdit text={item.name}
                                             paramName='name'
+                                            editing={true}
                                             placeholder='Name'
                                             className='editable'
                                             staticElement='p'
@@ -82,7 +122,8 @@ export class NewSpec extends React.Component {
                                   className="form-group row border-bottom-1">
                             <div className="col-sm-5">
                                 <InlineEdit text={item.description}
-                                            paramName='name'
+                                            paramName='description'
+                                            editing={true}
                                             placeholder='Description'
                                             className='editable'
                                             staticElement='p'
@@ -127,7 +168,7 @@ export class NewSpec extends React.Component {
                         <div className="form-group row">
                             <div className="col-sm">
                                 <button type="button"
-                                        onClick={() => this.save()}
+                                        onClick={() => this.createNew()}
                                         className="btn btn-primary">Create new</button>
                                 &nbsp;
                                 <button type="button"
@@ -147,4 +188,9 @@ export function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(NewSpec);
+export default connect(mapStateToProps, {
+    set_section : setSection,
+    set_location : setLocation,
+    set_type : setType,
+    createSpec
+})(NewSpec);

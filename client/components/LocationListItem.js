@@ -13,7 +13,6 @@ export class LocationListItem extends React.Component {
     ['delete']() {
         const { id } = this.props.item;
         this.props.delete(id);
-
     }
 
     choose() {

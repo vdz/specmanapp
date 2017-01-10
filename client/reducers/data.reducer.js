@@ -21,9 +21,15 @@ import {
     TYPE_CREATED,
     TYPE_UPDATED,
     TYPE_DELETED,
-    RESET_TYPES
+    RESET_TYPES,
+
+    GOT_SPECS,
+    SPEC_CREATED,
+    SPEC_UPDATED,
+    SPEC_DELETED,
+    RESET_SPECS,
+
 } from  '../actions/data.actions.js';
-import { arrayToHash } from '../helpers/utils.js';
 
 export const default_state = {
     projects : {},
@@ -166,6 +172,33 @@ export function reducer(state = default_state, action) {
                 }
             }
         }
+
+        case GOT_SPECS: return {
+            ...state,
+            specs : action.data
+        }
+        case SPEC_CREATED :
+        case SPEC_UPDATED : return {
+            ...state,
+            specs : {
+                ...state.specs,
+                [action.data.id] : action.data
+            }
+        }
+        case SPEC_DELETED : {
+            let new_items = {...state.specs};
+            delete new_items[action.id];
+
+            return {
+                ...state,
+                specs : new_items
+            }
+        }
+        case RESET_SPECS : return {
+            ...state,
+            specs : {...default_state.specs}
+        }
+
     }
 
     return state;

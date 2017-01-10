@@ -1,4 +1,3 @@
-import { push, replace } from 'react-router-redux';
 import { getRoute, buildRoute } from '../config/routes.js';
 import UrlPattern from 'url-pattern';
 
@@ -6,6 +5,7 @@ import { getProjects } from '../actions/data.actions.js';
 import {
     setProject,
     setSection,
+    setSpec
 } from '../actions/current.actions.js';
 
 let store;
@@ -78,6 +78,7 @@ function handleNewSpec(location) {
 
     if (params) {
         getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
+        store.dispatch(setSpec({}));
         return true;
     }
 

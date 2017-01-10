@@ -8,6 +8,7 @@ export const SET_CURRENT_PROJECT            = 'set current project';
 export const SET_CURRENT_SECTION            = 'set current section';
 export const SET_CURRENT_LOCATION           = 'set current location';
 export const SET_CURRENT_TYPE               = 'set current type';
+export const SET_CURRENT_SPEC               = 'set current spec';
 
 export function setProject(item = {}) {
     return (dispatch) => {
@@ -45,6 +46,13 @@ export function setLocation(item = {}) {
 export function setType(item = {}) {
     return (dispatch) => dispatch({
         type : SET_CURRENT_TYPE,
+        item
+    })
+}
+
+export function setSpec(item = {}) {
+    return (dispatch) => dispatch({
+        type : SET_CURRENT_SPEC,
         item
     })
 }

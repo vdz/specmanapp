@@ -43,6 +43,12 @@ export const RESET_TYPES = 'reset types';
 
 export const GET_SPECS = 'get specs';
 export const GOT_SPECS = 'got specs';
+export const CREATE_SPEC = 'create spec';
+export const SPEC_CREATED = 'spec created';
+export const UPDATE_SPEC = 'update spec';
+export const SPEC_UPDATED = 'spec updated';
+export const DELETE_SPEC = 'delete spec';
+export const SPEC_DELETED = 'spec deleted';
 export const RESET_SPECS = 'reset specs';
 
 export function getGlobalData() {
@@ -108,9 +114,6 @@ export function updateProject(params) {
             type: UPDATE_PROJECT,
             update: {...params}
         });
-
-        let payload = {...params};
-        delete payload.id;
 
         apiDo({
             method: 'put',
@@ -188,7 +191,7 @@ export function createSection(params) {
     return (dispatch) => {
         dispatch({
             type: CREATE_SECTION,
-            project: {...params}
+            section: {...params}
         });
 
         apiDo({
@@ -407,7 +410,7 @@ export function createType(params) {
     return (dispatch) => {
         dispatch({
             type: CREATE_TYPE,
-            location: {...params}
+            type: {...params}
         });
 
         apiDo({
@@ -508,6 +511,78 @@ export function getSpecs(project_id) {
             console.error('getSpecs error!', err);
         });
     }
+}
+
+export function createSpec(params) {
+    return (dispatch) => {
+        dispatch({
+            type: CREATE_SPEC,
+            spec: {...params}
+        });
+
+        apiDo({
+            method: 'post',
+            url: '/specs',
+            params
+        }).then((res) => {
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            dispatch({
+                type: SPEC_CREATED,
+                data
+            });
+        }).catch((err) => {
+            console.error('createSpec error!', err);
+        });
+    }
+}
+
+export function updateSpec(params) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_SPEC,
+            update: {...params}
+        });
+
+        apiDo({
+            method: 'put',
+            url: `/specs/${params.id}`,
+            params
+        }).then((res) => {
+            if (!res) return;
+            let data = JSON.parse(res);
+
+            dispatch({
+                type: SPEC_UPDATED,
+                data
+            });
+        }).catch((err) => {
+            console.error('updateSpec error!', err);
+        });
+    }
+}
+
+export function deleteSpec(id) {
+    return (dispatch) => {
+        dispatch({
+            type: DELETE_SPEC,
+            id
+        });
+
+        apiDo({
+            method: 'delete',
+            url: `/specs/${id}`
+        }).then((res) => {
+            dispatch({
+                type: SPEC_DELETED,
+                id
+            });
+        }).catch((err) => {
+            console.error('deleteSpec, there was an error!', err);
+        });
+    }
+
 }
 
 export function resetSpecs() {

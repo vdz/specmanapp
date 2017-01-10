@@ -2,7 +2,8 @@ import {
     SET_CURRENT_PROJECT,
     SET_CURRENT_SECTION,
     SET_CURRENT_LOCATION,
-    SET_CURRENT_TYPE
+    SET_CURRENT_TYPE,
+    SET_CURRENT_SPEC
 } from  '../actions/current.actions.js';
 
 import {
@@ -12,6 +13,7 @@ import {
     TYPE_CREATED,
     TYPE_UPDATED,
     TYPE_DELETED,
+    SPEC_CREATED
 } from  '../actions/data.actions.js';
 
 export const default_state = {
@@ -28,21 +30,22 @@ export function reducer(state = default_state, action) {
             ...default_state,
             project : action.item
         }
-
         case SET_CURRENT_SECTION: return {
             ...state,
             section : action.item,
             type : {...default_state.type}
         }
-
         case SET_CURRENT_LOCATION: return {
             ...state,
             location : action.item
         }
-
         case SET_CURRENT_TYPE: return {
             ...state,
             type : action.item
+        }
+        case SET_CURRENT_SPEC: return {
+            ...state,
+            spec : action.item
         }
 
         case SECTION_UPDATED : {
@@ -53,7 +56,6 @@ export function reducer(state = default_state, action) {
                 }
             }
         }
-
         case SECTION_DELETED : {
             if (action.item.id == state.section.id) {
                 return {
@@ -74,7 +76,6 @@ export function reducer(state = default_state, action) {
                 }
             }
         }
-
         case TYPE_CREATED :
         case TYPE_UPDATED : {
             if (action.data.section_id == state.section.id) {
@@ -90,7 +91,6 @@ export function reducer(state = default_state, action) {
                 }
             }
         }
-
         case TYPE_DELETED : {
             if (action.item.section_id == state.section.id) {
                 let new_types = {...state.section.types}
@@ -103,6 +103,11 @@ export function reducer(state = default_state, action) {
                     }
                 }
             }
+        }
+
+        case SPEC_CREATED : return {
+            ...state,
+            spec : action.data
         }
     }
 
