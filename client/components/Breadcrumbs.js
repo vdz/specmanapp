@@ -81,7 +81,7 @@ export class Breadcrumbs extends React.Component {
                     { (curr.project.id) ? section : ''}
                     { (curr.section.id) ? type : ''}
                     { (curr.project.id) ? location : ''}
-                    { spec }
+                    { (curr.project.id) ? spec : '' }
                 </nav>
     }
 

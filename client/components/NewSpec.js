@@ -8,6 +8,8 @@ import {
     setType
 } from '../actions/current.actions.js';
 import { createSpec } from '../actions/data.actions.js';
+import { push } from 'react-router-redux';
+import { buildRoute } from '../config/routes.js';
 
 export class NewSpec extends React.Component {
     constructor(props) {
@@ -66,6 +68,12 @@ export class NewSpec extends React.Component {
         if (spec.name && (spec.location_id || spec.section_id)) {
             this.props.createSpec(this.state.spec);
         }
+    }
+
+    cancel() {
+        this.props.push(buildRoute('sections', {
+            id :  this.props.current.project.id
+        }))
     }
     
     getCombo(type) {
@@ -173,7 +181,7 @@ export class NewSpec extends React.Component {
                                         className="btn btn-primary">Create new</button>
                                 &nbsp;
                                 <button type="button"
-                                        onClick={this.props.cancel}
+                                        onClick={() => this.cancel()}
                                         className="btn btn-secondary">Cancel</button>
                             </div>
                         </div>
@@ -193,5 +201,6 @@ export default connect(mapStateToProps, {
     set_section : setSection,
     set_location : setLocation,
     set_type : setType,
-    createSpec
+    createSpec,
+    push
 })(NewSpec);
