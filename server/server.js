@@ -5,7 +5,7 @@ const app = express();
 const api = require('./epilogue');
 var env = process.env.NODE_ENV || 'dev';
 const path = require('path');
-const port = (env == 'dev') ? 2000 : 80;
+const port = (env == 'dev') ? 2000 : process.env.PORT;
 
 process.on('uncaughtException', function(err) {
     // handle the error safely
