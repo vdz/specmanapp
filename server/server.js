@@ -8,8 +8,12 @@ const env = process.env.NODE_ENV || 'dev';
 const path = require('path');
 const port = (env == 'dev') ? 2000 : process.env.PORT;
 
-app.use('*', cors());
-app.options('*', cors());
+const corsOptions = {
+    optionsSuccessStatus : 200
+};
+
+app.use('*', cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
