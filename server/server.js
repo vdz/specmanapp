@@ -10,12 +10,6 @@ const port = (env == 'dev') ? 2000 : process.env.PORT;
 process.on('uncaughtException', function(err) {
     // handle the error safely
     console.log(err);
-})
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
 });
 
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
