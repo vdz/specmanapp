@@ -3,8 +3,9 @@
 const express = require('express');
 const app = express();
 const api = require('./epilogue');
+var env = process.env.NODE_ENV || 'dev';
 const path = require('path');
-const port = 2000;
+const port = (env == 'dev') ? 2000 : 80;
 
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
