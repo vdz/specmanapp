@@ -1,6 +1,7 @@
 "use strict";
 
 const express = require('express');
+var cors = require('cors');
 const app = express();
 const api = require('./epilogue');
 var env = process.env.NODE_ENV || 'dev';
@@ -12,22 +13,7 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 });
 
-app.use('/api/*', function(req, res, next) {
-    var origin = req.get('origin');
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    //res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    //res.header('Access-Control-Allow-Headers', 'accept, content-type, x-requested-with x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
-
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-        res.send(200);
-    }
-    else {
-        next();
-    }
-});
+app.use(cors());
 
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
