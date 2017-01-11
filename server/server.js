@@ -19,7 +19,7 @@ app.use('*', function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     //res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     //res.header('Access-Control-Allow-Headers', 'accept, content-type, x-requested-with x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
-
+    res.send(200);
     // intercept OPTIONS method
     if ('OPTIONS' == req.method) {
         res.send(200);
