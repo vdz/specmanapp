@@ -12,6 +12,23 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 });
 
+app.use('*', function(req, res, next) {
+    var origin = req.get('origin');
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    //res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    //res.header('Access-Control-Allow-Headers', 'accept, content-type, x-requested-with x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+        res.send(200);
+    }
+    else {
+        next();
+    }
+});
+
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
 app.use('/css', express.static(path.join(__dirname,'..', 'public/css')));

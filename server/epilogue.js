@@ -5,7 +5,7 @@ const epilogue = require('epilogue');
 module.exports = {
     init: function(app) {
 
-        app.use(function(req, res, next) {
+/*        app.use(function(req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
             res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
@@ -16,7 +16,7 @@ module.exports = {
             else {
                 next();
             }
-        });
+        });*/
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({extended: true}));
 
