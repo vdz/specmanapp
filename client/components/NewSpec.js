@@ -10,6 +10,7 @@ import {
 import { createSpec } from '../actions/data.actions.js';
 import { push } from 'react-router-redux';
 import { buildRoute } from '../config/routes.js';
+import { addClass, removeClass } from '../helpers/utils.js';
 
 export class NewSpec extends React.Component {
     constructor(props) {
@@ -24,7 +25,8 @@ export class NewSpec extends React.Component {
                 project_id : project.id,
                 section_id : section.id,
                 type_id : type.id,
-                location_id : location.id
+                location_id : location.id,
+                fields : []
             }
         }
     }
@@ -38,6 +40,14 @@ export class NewSpec extends React.Component {
                     project_id: nextProps.current.project.id
                 }
             });
+        }
+
+        const spec = nextProps.current.spec;
+        if (spec.id) {
+            this.props.push(buildRoute('spec', {
+                id : nextProps.current.project.id,
+                specId : spec.id
+            }))
         }
     }
 
@@ -54,13 +64,14 @@ export class NewSpec extends React.Component {
     }
 
     save(params) {
-        this.state = {
+        const new_state = {
             ...this.state,
             spec : {
                 ...this.state.spec,
                 ...params
             }
         };
+        this.setState(new_state);
     }
 
     createNew() {
@@ -75,7 +86,54 @@ export class NewSpec extends React.Component {
             id :  this.props.current.project.id
         }))
     }
-    
+
+    resetCustomForm() {
+        this.refs.new_custom_type.value = '';
+        this.refs.new_custom_value.value = '';
+
+        addClass(this.refs.new_custom_type, 'sr-only');
+        removeClass(this.refs.custom_types, 'hidden');
+        this.refs.custom_types.value = 'Price';
+    }
+
+    setCustomType() {
+        const value = this.refs.custom_types.value;
+        if (value == '_new') {
+            removeClass(this.refs.new_custom_type, 'sr-only');
+            addClass(this.refs.custom_types, 'hidden');
+            this.refs.new_custom_type.focus();
+            return;
+        }
+        this.refs.new_custom_type.value = value;
+    }
+
+    addCustomField() {
+        let new_field = {
+            label : this.refs.new_custom_type.value || this.refs.custom_types.value,
+            value : this.refs.new_custom_value.value,
+        };
+
+        if (!new_field.label || !new_field.value) return;
+        this.resetCustomForm();
+
+        let new_state = {...this.state};
+        new_state.spec.fields.push(new_field);
+        this.setState(new_state);
+    }
+
+    editCustomField(index, prop) {
+        const value = this.refs[prop+'_custom_'+index].value;
+        let new_state = {...this.state};
+        new_state.spec.fields[index][prop] = value;
+        this.setState(new_state);
+    }
+
+    removeCustomField(index) {
+        let new_state = { ...this.state};
+        new_state.spec.fields.splice(index, 1);
+        this.setState(new_state);
+    }
+
     getCombo(type) {
         let list = [];
         const items = (type == 'type')
@@ -97,19 +155,88 @@ export class NewSpec extends React.Component {
                     { list }
                 </select>;
     }
+    
+    getCustomFields() {
+        let result = [];
+        const fields = this.state.spec.fields;
+
+        fields.forEach((item, index) => {
+            const ref = 'custom_' + index;
+            result.push(
+                <div key={'key_'+ref}
+                          className="form-group row">
+                    <div className="col-sm-3 input-group">
+                        <input type="text"
+                               className="form-control"
+                               ref={'label_'+ref}
+                               value={item.label}
+                               onChange={() => this.editCustomField(index, 'label')}
+                               placeholder="Field type" />
+                    </div>
+                    <div className="col-sm input-group">
+                        <input type="text"
+                               className="form-control"
+                               ref={'value_'+ref}
+                               value={item.value}
+                               onChange={() => this.editCustomField(index, 'value')}
+                               placeholder="Value" />
+                        <button type="button"
+                                onClick={() => this.removeCustomField(index)}
+                                className="btn btn-link">Remove</button>
+                    </div>
+                </div>
+                    );
+        });
+
+        return  <div>
+                    { result }
+                </div>;
+    }
+
+    getNewCustomField() {
+        return  <div ref='group-custom-new'
+                    className="form-group row border-bottom-1">
+                    <div className="col-sm-3">
+                        <input type="text"
+                               placeholder="Field name"
+                               className="form-control sr-only"
+                               ref='new_custom_type' />
+                        <select ref='custom_types'
+                                onChange={() => this.setCustomType()}
+                                className="form-control">
+                            <option value='Price'>Price</option>
+                            <option value="_new">Other</option>
+                        </select>
+                    </div>
+                    <div className="col-sm">
+                        <div className="input-group">
+                            <input type="text"
+                                   className="form-control"
+                                   ref='new_custom_value' />
+
+                            <button type="button"
+                                    onClick={() => this.addCustomField()}
+                                    className="btn btn-link">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </div>;
+    }
 
     render() {
         const { section, type, location } = this.props.current;
         const item = this.state.spec;
+        const custom_fields = this.getCustomFields();
+        const new_custom_field = this.getNewCustomField();
 
         return  <section className='Spec new container'>
-                    <form>
                         <div className="form-group row">
                             <div className="col-sm">
                                 <h3 className='display-6'>Create new specification</h3>
                             </div>
                         </div>
-                        <fieldset ref='group'
+                        <div ref='group-main'
                              className="form-group row">
                             <div className="col-sm-5">
                                 <InlineEdit text={item.name}
@@ -123,11 +250,11 @@ export class NewSpec extends React.Component {
                                             stopPropagation={true}
                                             activeClassName='form-control' />
                             </div>
-                            <div className="col-sm">
+                            <div className="col-sm-7">
                                 <small>Field description</small>
                             </div>
-                        </fieldset>
-                        <fieldset ref='group'
+                        </div>
+                        <div ref='group'
                                   className="form-group row border-bottom-1">
                             <div className="col-sm-5">
                                 <InlineEdit text={item.description}
@@ -144,9 +271,9 @@ export class NewSpec extends React.Component {
                             <div className="col-sm">
                                 <small>Field description</small>
                             </div>
-                        </fieldset>
+                        </div>
 
-                        <fieldset ref='group'
+                        <div ref='group-links'
                                   className="form-group row">
                             <div className="col-sm-5">
                                 { this.getCombo('section') }
@@ -154,8 +281,8 @@ export class NewSpec extends React.Component {
                             <div className="col-sm">
                                 <small>Field description</small>
                             </div>
-                        </fieldset>
-                        <fieldset ref='group'
+                        </div>
+                        <div ref='group'
                                   className="form-group row">
                             <div className="col-sm-5">
                                 { this.getCombo('type') }
@@ -163,8 +290,8 @@ export class NewSpec extends React.Component {
                             <div className="col-sm">
                                 <small>Field description</small>
                             </div>
-                        </fieldset>
-                        <fieldset ref='group'
+                        </div>
+                        <div ref='group'
                                   className="form-group row border-bottom-1">
                             <div className="col-sm-5">
                                 { this.getCombo('location') }
@@ -172,7 +299,11 @@ export class NewSpec extends React.Component {
                             <div className="col-sm">
                                 <small>Field description</small>
                             </div>
-                        </fieldset>
+                        </div>
+
+                        { custom_fields }
+
+                        { new_custom_field }
 
                         <div className="form-group row">
                             <div className="col-sm">
@@ -185,7 +316,6 @@ export class NewSpec extends React.Component {
                                         className="btn btn-secondary">Cancel</button>
                             </div>
                         </div>
-                    </form>
                 </section>;
     }
 }

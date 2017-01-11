@@ -1,3 +1,5 @@
+//_ TODO: R-E-F-A-C-T-O-R-!
+
 import { getRoute, buildRoute } from '../config/routes.js';
 import UrlPattern from 'url-pattern';
 
@@ -25,6 +27,7 @@ export function routerListener(location) {
     handleSections(location);
     handleSection(location);
     handleNewSpec(location);
+    handleSpec(location);
 }
 
 // URL Handlers
@@ -57,8 +60,6 @@ function handleProject(location) {
 
     return false;
 }
-
-// URL Handlers
 function handleSections(location) {
     const pattern = new UrlPattern(getRoute('sections'));
     const params = pattern.match(location.pathname);
@@ -70,8 +71,6 @@ function handleSections(location) {
 
     return false;
 }
-
-// URL Handlers
 function handleNewSpec(location) {
     const pattern = new UrlPattern(getRoute('new_spec'));
     const params = pattern.match(location.pathname);
@@ -84,7 +83,18 @@ function handleNewSpec(location) {
 
     return false;
 }
+function handleSpec(location) {
+    const pattern = new UrlPattern(getRoute('spec'));
+    const params = pattern.match(location.pathname);
 
+    if (params) {
+        getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
+        getSpecData(params, (obj) => store.dispatch(setSpec(obj)))
+        return true;
+    }
+
+    return false;
+}
 
 function handleSection(location) {
     const pattern = new UrlPattern(getRoute('section'));
@@ -130,6 +140,21 @@ function getSectionData(params, payload) {
     }
 }
 
+function getSpecData(params, payload) {
+    let spec = store.getState().current.spec;
+    let specs = store.getState().data.specs;
+    let spec_id = params.specId * 1;
+
+    if (!spec || spec.id != spec_id) {
+        if (!Object.keys(specs).length) {
+            let unsub = store.subscribe(() => subForSpecs(spec_id, payload, unsub));
+        } else {
+            spec = specs[spec_id];
+            payload(spec);
+        }
+    }
+}
+
 function subForProjects(id, payload, unsub) {
     const items = store.getState().data.projects;
     if (Object.keys(items).length > 0) {
@@ -144,6 +169,15 @@ function subForSections(id, payload, unsub) {
     if (Object.keys(items).length > 0) {
         unsub();
         const item = store.getState().data.sections[id];
+        payload(item);
+    }
+}
+
+function subForSpecs(id, payload, unsub) {
+    const items = store.getState().data.specs;
+    if (Object.keys(items).length > 0) {
+        unsub();
+        const item = store.getState().data.specs[id];
         payload(item);
     }
 }

@@ -47,10 +47,25 @@ module.exports = {
 
         const specResource = epilogue.resource({
             model : db.Spec,
+            include : [
+                {
+                    model : db.Field,
+                    as : 'fields'
+                }
+            ],
             endpoints : ['/specs', '/specs/:id'],
             search: {
                 param: 'project',
                 attributes: [ 'project_id' ]
+            }
+        });
+
+        const fieldResource = epilogue.resource({
+            model : db.Field,
+            endpoints : ['/fields', '/fields/:id'],
+            search: {
+                param: 'spec',
+                attributes: [ 'spec_id' ]
             }
         });
     }

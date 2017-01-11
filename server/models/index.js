@@ -31,11 +31,17 @@ Object.keys(db).forEach(function(modelName) {
 
 // Associations
 db.Project.hasMany(db.Spec);
+
 db.File.belongsTo(db.Project);
+
 db.Type.belongsTo(db.Section);
+
 db.Spec.belongsTo(db.Section);
 db.Spec.belongsTo(db.Location);
+
 db.Spec.belongsTo(db.Type);
+db.Spec.hasMany(db.Field, { as : 'fields' });
+
 db.Field.belongsTo(db.Spec);
 db.Media.belongsTo(db.Spec);
 
