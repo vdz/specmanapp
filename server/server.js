@@ -13,7 +13,7 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 });
 
-app.use(cors());
+app.options('*', cors());
 
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
