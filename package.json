@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Specification manager for Regal American Homes",
   "main": "index.js",
+  "engines": {
+    "node": "6.9.4"
+  },
   "scripts": {
     "start": "node ./server/server.js",
     "build:css": "compass compile -c config/compass.rb",
