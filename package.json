@@ -62,9 +62,7 @@
     "sequelize": "^3.28.0",
     "url-pattern": "^1.0.3",
     "webpack": "^1.13.1",
-    "yamlparser": "0.0.2"
-  },
-  "devDependencies": {
+    "yamlparser": "0.0.2",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-webpack2": "^1.0.0",
     "babel-preset-react": "^6.11.1",
