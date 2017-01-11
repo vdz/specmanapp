@@ -12,6 +12,12 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 })
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
 app.use('/css', express.static(path.join(__dirname,'..', 'public/css')));
