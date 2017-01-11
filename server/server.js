@@ -7,6 +7,11 @@ var env = process.env.NODE_ENV || 'dev';
 const path = require('path');
 const port = (env == 'dev') ? 2000 : 80;
 
+process.on('uncaughtException', function(err) {
+    // handle the error safely
+    console.log(err);
+})
+
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
 app.use('/css', express.static(path.join(__dirname,'..', 'public/css')));
