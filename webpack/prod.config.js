@@ -4,7 +4,7 @@ var uglify = new webpack.optimize.UglifyJsPlugin({
     compressor: { warnings: false },
     output: { comments: false },
     minimize: true,
-    sourceMap: false,
+    sourceMap: true, //_ false
     mangle: true
 });
 
@@ -14,6 +14,6 @@ var prod_env = new webpack.DefinePlugin({
 
 conf.devtool = "source-map";
 conf.plugins.push(prod_env);
-conf.plugins.push(uglify);
+//_ conf.plugins.push(uglify);
 
 module.exports = conf;
