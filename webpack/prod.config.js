@@ -14,6 +14,6 @@ var prod_env = new webpack.DefinePlugin({
 
 conf.devtool = "source-map";
 conf.plugins.push(prod_env);
-//_ conf.plugins.push(uglify);
+conf.plugins.push(uglify);
 
 module.exports = conf;
