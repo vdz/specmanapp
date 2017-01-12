@@ -30,7 +30,7 @@ export class LocationListItem extends React.Component {
         const { item } = this.props;
         return  <section className='LocationListItem row'
                          onClick={() => this.choose()}>
-                    <div className='col-md'>
+                    <div className='col-sm'>
                         <InlineEdit text={item.name}
                                     paramName='name'
                                     className='editable'
@@ -50,7 +50,7 @@ export class LocationListItem extends React.Component {
                                         activeClassName='form-control form-control-sm' />
                         </p>
                     </div>
-                    <div className='col-md controls uncoverme'>
+                    <div className='col-sm controls uncoverme'>
                         <button className='btn btn-primary'
                                 onClick={(e) => {
                                     this.newSpec();
