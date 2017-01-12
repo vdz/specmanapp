@@ -1,6 +1,7 @@
 const db = require('./models');
 const bodyParser = require('body-parser');
 const epilogue = require('epilogue');
+const cors = require('cors');
 
 module.exports = {
     init: function(app) {
@@ -8,7 +9,7 @@ module.exports = {
             optionsSuccessStatus : 200
         };
 
-        app.use('/api', function(req, res, next) {
+        app.use('/api', cors(corsOptions), function(req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
             res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');

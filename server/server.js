@@ -15,12 +15,12 @@ const corsOptions = {
 app.use('*', cors(corsOptions));
 app.options('*', cors(corsOptions));
 
+api.init(app);
+
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
 app.use('/css', express.static(path.join(__dirname,'..', 'public/css')));
 app.use('/js', express.static(path.join(__dirname,'..', 'public/js')));
-
-api.init(app);
 
 app.all('/*', function (req, res) {
     res.sendFile(path.join(__dirname, '../index.html'));
