@@ -11,6 +11,7 @@ import { createSpec } from '../actions/data.actions.js';
 import { push } from 'react-router-redux';
 import { buildRoute } from '../config/routes.js';
 import { addClass, removeClass } from '../helpers/utils.js';
+import { config } from '../config/config.js';
 
 export class NewSpec extends React.Component {
     constructor(props) {
@@ -93,7 +94,7 @@ export class NewSpec extends React.Component {
 
         addClass(this.refs.new_custom_type, 'sr-only');
         removeClass(this.refs.custom_types, 'hidden');
-        this.refs.custom_types.value = 'Price';
+        this.refs.custom_types.value = config.CUSTOM_FIELD_PRESETS[0];
     }
 
     setCustomType() {
@@ -194,6 +195,13 @@ export class NewSpec extends React.Component {
     }
 
     getNewCustomField() {
+        const custom_presets = [];
+
+        config.CUSTOM_FIELD_PRESETS.forEach(preset => {
+            custom_presets.push(<option key={'preset-'+preset}
+                                        value={preset}>{preset}</option>);
+        });
+
         return  <div ref='group-custom-new'
                     className="form-group row border-bottom-1">
                     <div className="col-sm-3">
@@ -204,7 +212,7 @@ export class NewSpec extends React.Component {
                         <select ref='custom_types'
                                 onChange={() => this.setCustomType()}
                                 className="form-control">
-                            <option value='Price'>Price</option>
+                            { custom_presets }
                             <option value="_new">Other</option>
                         </select>
                     </div>
