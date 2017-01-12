@@ -30,6 +30,7 @@ export class ProjectListItem extends React.Component {
                                     className='editable'
                                     change={(params) => this.save(params)}
                                     activeClassName='form-control'
+                                    stopPropagation={true}
                                     staticElement='h6' />
                         <p>
                             <InlineEdit text={project.address}
@@ -37,6 +38,7 @@ export class ProjectListItem extends React.Component {
                                         className='editable'
                                         staticElement='small'
                                         change={(params) => this.save(params)}
+                                        stopPropagation={true}
                                         activeClassName='form-control form-control-sm' />
 
                             <InlineEdit text={project.client}
@@ -44,6 +46,7 @@ export class ProjectListItem extends React.Component {
                                         className='editable'
                                         staticElement='small'
                                         change={(params) => this.save(params)}
+                                        stopPropagation={true}
                                         activeClassName='form-control form-control-sm' />
 
                             <InlineEdit text={project.description}
@@ -52,6 +55,7 @@ export class ProjectListItem extends React.Component {
                                         staticElement='small'
                                         editingElement='textarea'
                                         change={(params) => this.save(params)}
+                                        stopPropagation={true}
                                         activeClassName='form-control form-control-sm h-100' />
                         </p>
                     </div>
