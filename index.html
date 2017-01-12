@@ -26,12 +26,11 @@
     <div id="app"></div>
     <script src="/js/index.js"></script>
     <script>
-        window.init({
-            target : 'app',
-            //user : googleUser
-        });
         function onSignIn(googleUser) {
-            window.set_user(googleUser);
+            window.init({
+                target : 'app',
+                user : googleUser
+            });
         };
     </script>
 </body>
