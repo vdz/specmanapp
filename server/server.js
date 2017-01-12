@@ -18,8 +18,9 @@ const corsOptions = {
 };
 
 app.use('*', cors(corsOptions));
-app.options('*', cors(corsOptions));
-
+app.options('/*', cors(corsOptions));
+app.options('/api/*', cors(corsOptions));
+app.options('/api/projects', cors(corsOptions));
 api.init(app);
 
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
