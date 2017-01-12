@@ -1,7 +1,6 @@
 const db = require('./models');
 const bodyParser = require('body-parser');
 const epilogue = require('epilogue');
-const cors = require('cors');
 
 module.exports = {
     init: function(app) {
@@ -9,14 +8,7 @@ module.exports = {
             optionsSuccessStatus : 200
         };
 
-        app.use('/api', cors(corsOptions), function(req, res, next) {
-            if ('OPTIONS' == req.method) {
-                console.log(req.method);
-            }
-            next();
-        });
-        app.options('/api', cors(corsOptions));
-        /*app.use(function(req, res, next) {
+        app.use('/api', function(req, res, next) {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
             res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
@@ -27,11 +19,11 @@ module.exports = {
             else {
                 next();
             }
-        });*/
+        });
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({extended: true}));
 
-        epilogue.initialize({
+        /*epilogue.initialize({
             app : app,
             sequelize : db,
             base : '/api'
@@ -84,6 +76,6 @@ module.exports = {
                 param: 'spec',
                 attributes: [ 'spec_id' ]
             }
-        });
+        });*/
     }
 };
