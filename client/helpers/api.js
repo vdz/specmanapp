@@ -30,7 +30,7 @@ export function apiDo (opts) {
                 xhr.setRequestHeader(key, opts.headers[key]);
             });
         }
-        xhr.setRequestHeader('Accept', 'application/json');
+        xhr.setRequestHeader('Accept', '*/*');
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         var params = opts.params;
