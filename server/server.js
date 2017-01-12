@@ -13,11 +13,12 @@ const corsOptions = {
     optionsSuccessStatus : 200,
     methods : ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders : ['Accept', 'Content-Type'],
-    credentials : true
+    credentials : true,
+
 };
 
 app.use('*', cors(corsOptions));
-app.options('/api', cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 api.init(app);
 
