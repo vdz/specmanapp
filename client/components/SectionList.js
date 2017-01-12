@@ -25,7 +25,11 @@ export class SectionList extends React.Component {
             sectionId : id
         }));
     }
-    
+
+    newSpec() {
+        this.props.push(buildRoute('new_spec', { id : this.props.project.id }))
+    }
+
     getItems() {
         const { items } = this.props;
         let result = [];
@@ -34,6 +38,7 @@ export class SectionList extends React.Component {
                                          update={(params) => this.save(params)}
                                          delete={(params) => this.delete(params)}
                                          manage={(params) => this.manage(params)}
+                                         new_spec={(params) => this.newSpec(params)}
                                          item={items[id]} />)
         });
         return result;

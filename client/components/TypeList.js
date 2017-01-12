@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { TypeListItem as ListItem } from './TypeListItem.js';
 import { updateType as updateItem, deleteType as deleteItem } from '../actions/data.actions.js';
 import { setType } from '../actions/current.actions.js';
+import { buildRoute } from '../config/routes.js';
 import { push } from 'react-router-redux';
 
 export class TypeList extends React.Component {
@@ -21,6 +22,19 @@ export class TypeList extends React.Component {
     manage(id) {
         if (!id) return;
         this.props.setType(this.props.items[id]);
+
+        const { current } = this.props;
+
+        // if at the end of the cycle go to new spec, otherwise go to locations
+        if (current.location.id) {
+            this.props.push(buildRoute('new_spec', { id : current.project.id }));
+        } else {
+            this.props.push(buildRoute('locations', { id : current.project.id }));
+        }
+    }
+    
+    newSpec() {
+        this.props.push(buildRoute('new_spec', { id : this.props.current.project.id }))
     }
     
     getItems() {
@@ -31,6 +45,7 @@ export class TypeList extends React.Component {
                                          update={(params) => this.save(params)}
                                          delete={(params) => this.delete(params)}
                                          manage={(params) => this.manage(params)}
+                                         new_spec={(params) => this.newSpec(params)}
                                          item={items[id]} />)
         });
         return result;
@@ -50,7 +65,8 @@ export class TypeList extends React.Component {
 
 export function mapStateToProps(state) {
     return {
-        items : state.current.section.types
+        items : state.current.section.types,
+        current : state.current
     }
 }
 

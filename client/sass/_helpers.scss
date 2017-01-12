@@ -11,3 +11,12 @@
     margin-bottom: $spacer-y;
     border-bottom: 1px solid #eee;
 }
+
+.editable {
+    display: block;
+
+    &:hover {
+        background-color: #FFEE82;
+    }
+}
+

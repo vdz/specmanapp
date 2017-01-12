@@ -21,7 +21,9 @@ export class LocationListItem extends React.Component {
     }
 
     newSpec() {
-
+        const { id } = this.props.item;
+        this.choose();
+        this.props.new_spec();
     }
 
     render() {
@@ -48,12 +50,11 @@ export class LocationListItem extends React.Component {
                                         activeClassName='form-control form-control-sm' />
                         </p>
                     </div>
-                    <div className='col-md controls uncoverme'
-                         onClick={(e) => {
-                            this.newSpec();
-                            e.stopPropagation();
-                         }}>
-                        <button className='btn btn-primary'>
+                    <div className='col-md controls uncoverme'>
+                        <button className='btn btn-primary'
+                                onClick={(e) => {
+                                    this.newSpec();
+                                    e.stopPropagation();}}>
                             New spec
                         </button>
                         <button className='btn btn-link text-danger'

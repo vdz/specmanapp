@@ -23,14 +23,15 @@ export class TypeListItem extends React.Component {
 
     newSpec() {
         const { id } = this.props.item;
-        console.log(id);
+        this.choose();
+        this.props.new_spec();
     }
 
     render() {
         const { item } = this.props;
         return  <section className='TypeListItem row'
                          onClick={() => this.choose()}>
-                    <div className='col-md'>
+                    <div className='col-sm'>
                         <InlineEdit text={item.name}
                                     paramName='name'
                                     className='editable'
@@ -50,12 +51,11 @@ export class TypeListItem extends React.Component {
                                         activeClassName='form-control form-control-sm' />
                         </p>
                     </div>
-                    <div className='col-md controls uncoverme'
-                         onClick={(e) => {
-                            this.newSpec();
-                            e.stopPropagation();
-                         }}>
-                        <button className='btn btn-primary'>
+                    <div className='col-sm controls uncoverme'>
+                        <button className='btn btn-primary'
+                                onClick={(e) => {
+                                    this.newSpec();
+                                    e.stopPropagation();}}>
                             New spec
                         </button>
                         <button className='btn btn-link text-danger'

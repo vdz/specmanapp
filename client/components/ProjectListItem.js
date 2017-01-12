@@ -22,8 +22,9 @@ export class ProjectListItem extends React.Component {
 
     render() {
         const { project } = this.props;
-        return  <section className='ProjectListItem row'>
-                    <div className='col-md-4'>
+        return  <section className='ProjectListItem row'
+                         onClick={() => this.choose()}>
+                    <div className='col-sm'>
                         <InlineEdit text={project.name}
                                     paramName='name'
                                     className='editable'
@@ -44,10 +45,7 @@ export class ProjectListItem extends React.Component {
                                         staticElement='small'
                                         change={(params) => this.save(params)}
                                         activeClassName='form-control form-control-sm' />
-                        </p>
-                    </div>
-                    <div className='col-md description uncoverme'>
-                        <p>
+
                             <InlineEdit text={project.description}
                                         paramName='description'
                                         className='editable'
@@ -57,13 +55,15 @@ export class ProjectListItem extends React.Component {
                                         activeClassName='form-control form-control-sm h-100' />
                         </p>
                     </div>
-                    <div className='col-md-3 controls uncoverme'
-                         onClick={() => this.choose()}>
+                    <div className='col-sm controls uncoverme'>
                         <button className='btn btn-primary'>
                             Manage
                         </button>
                         <button className='btn btn-link text-danger'
-                                onClick={() => this.delete()}>
+                                onClick={(e) => {
+                                    this.delete();
+                                    e.stopPropagation();
+                                }}>
                             <i className="fa fa-times fa-4" aria-hidden="true"></i>&nbsp;
                             Delete
                         </button>
