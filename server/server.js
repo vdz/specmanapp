@@ -8,6 +8,7 @@ const env = process.env.NODE_ENV || 'dev';
 const path = require('path');
 const port = (env == 'dev') ? 2000 : process.env.PORT;
 
+/*
 const corsOptions = {
     origin : '*',
     optionsSuccessStatus : 200,
@@ -16,11 +17,11 @@ const corsOptions = {
     credentials : true,
 
 };
+*/
 
-app.use('*', cors(corsOptions));
-app.options('/*', cors(corsOptions));
-app.options('/api/*', cors(corsOptions));
-app.options('/api/projects', cors(corsOptions));
+app.use('*', cors());
+app.options('*', cors());
+
 api.init(app);
 
 app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
