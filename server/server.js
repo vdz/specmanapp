@@ -9,7 +9,11 @@ const path = require('path');
 const port = (env == 'dev') ? 2000 : process.env.PORT;
 
 const corsOptions = {
-    optionsSuccessStatus : 200
+    origin : '*',
+    optionsSuccessStatus : 200,
+    methods : ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders : ['Accept', 'Content-Type'],
+    credentials : true
 };
 
 app.use('*', cors(corsOptions));
