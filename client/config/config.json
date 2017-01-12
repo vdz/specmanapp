@@ -5,6 +5,6 @@
   },
   "production" : {
     "DOM_APP_ELEMENT_ID" : "app",
-    "API_URL" : "//specman.heroku.com/api"
+    "API_URL" : "//specman.herokuapp.com/api"
   }
 }

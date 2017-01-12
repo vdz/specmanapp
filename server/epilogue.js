@@ -5,23 +5,10 @@ const epilogue = require('epilogue');
 module.exports = {
     init: function(app) {
 
-        app.use('/api', function(req, res, next) {
-            /*res.header('Access-Control-Allow-Origin', '*');
-            res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-            res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');*/
-            // intercept OPTIONS method
-            if ('OPTIONS' == req.method) {
-                res.send(200);
-            }
-            else {
-                next();
-            }
-        });
-
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({extended: true}));
 
-/*        epilogue.initialize({
+        epilogue.initialize({
             app : app,
             sequelize : db,
             base : '/api'
@@ -74,6 +61,6 @@ module.exports = {
                 param: 'spec',
                 attributes: [ 'spec_id' ]
             }
-        });*/
+        });
     }
 };
