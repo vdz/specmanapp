@@ -8,6 +8,7 @@ import Sections from '../components/Sections.js';
 import Locations from '../components/Locations.js';
 import Types from '../components/Types.js';
 import NewSpec from '../components/NewSpec.js';
+import Spec from '../components/Spec.js';
 
 export const default_routes = {
     base : '/',
@@ -18,7 +19,7 @@ export const default_routes = {
     locations : '/project/:id/locations',
     types : '/project/:id/section/:sectionId/types',
     spec : '/project/:id/spec/:specId',
-    new_spec : '/project/:id/spec'
+    new_spec : '/project/:id/newspec'
 };
 
 let routes = {...default_routes};
@@ -50,6 +51,7 @@ export default () => {
                     <Route path={routes.locations} component={Locations} />
                     <Route path={routes.section} component={Types} />
                     <Route path={routes.new_spec} component={NewSpec} />
+                    <Route path={routes.spec} component={Spec} />
                 </Route>
             </Route>;
 }

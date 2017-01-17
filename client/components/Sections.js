@@ -40,7 +40,7 @@ export class Sections extends React.Component {
                         <section className='data-wrapper col-md'>
                             <div className='row'>
                                 <h3 className='col-md'>
-                                    Items
+                                    Sections
                                 </h3>
                                 <p className='col-md text-muted'>
                                     Create and manage your sections here

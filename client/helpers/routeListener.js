@@ -3,7 +3,7 @@
 import { getRoute, buildRoute } from '../config/routes.js';
 import UrlPattern from 'url-pattern';
 
-import { getProjects } from '../actions/data.actions.js';
+import { getProjects, getSpecs } from '../actions/data.actions.js';
 import {
     setProject,
     setSection,
@@ -54,7 +54,10 @@ function handleProject(location) {
     const params = pattern.match(location.pathname);
     
     if (params) {
-        getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
+        getProjectData(params, (obj) => {
+            store.dispatch(setProject(obj));
+            store.dispatch(getSpecs(obj.id));
+        });
         return true;
     }
 
@@ -89,7 +92,7 @@ function handleSpec(location) {
 
     if (params) {
         getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
-        getSpecData(params, (obj) => store.dispatch(setSpec(obj)))
+        getSpecData(params, (obj) => { store.dispatch(setSpec(obj)) });
         return true;
     }
 
