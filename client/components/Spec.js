@@ -47,10 +47,6 @@ export class Spec extends React.Component {
         const spec = nextProps.current.spec;
         const curr_spec = this.props.current.spec;
         if (JSON.stringify(curr_spec) !== JSON.stringify(spec)) {
-            spec.section_id && this.select('section', spec.section_id);
-            //spec.type_id && this.select('type', spec.type_id);
-            spec.location_id && this.select('location', spec.location_id);
-
             this.setState({
                 ...this.state,
                 spec: {
@@ -58,6 +54,22 @@ export class Spec extends React.Component {
                     ...spec
                 }
             });
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const prev_spec = prevProps.current.spec;
+        const spec = this.props.current.spec;
+
+        if (JSON.stringify(prev_spec) !== JSON.stringify(spec) && spec.id) {
+            spec.section_id && this.select('section', spec.section_id);
+            spec.location_id && this.select('location', spec.location_id);
+        }
+
+        if (JSON.stringify(this.props.current.section) != JSON.stringify(prevProps.current.section)
+            && !prevProps.current.section.id
+            && prevProps.current.spec.type_id) {
+            this.select('type', this.props.current.spec.type_id);
         }
     }
 
@@ -87,6 +99,8 @@ export class Spec extends React.Component {
         const { spec } = this.state;
         if (spec.name && (spec.location_id || spec.section_id)) {
             this.props.updateSpec(this.state.spec);
+        } else {
+            alert('Cannot save!\n You need to fill spec name and choose either section or a location');
         }
     }
 
@@ -333,6 +347,7 @@ export class Spec extends React.Component {
                         <div className="form-group row">
                             <div className="col-sm">
                                 <button type="button"
+                                        ref="save_btn"
                                         onClick={() => this.update()}
                                         className="btn btn-primary">Save</button>
                                 &nbsp;

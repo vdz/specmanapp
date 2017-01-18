@@ -1,6 +1,11 @@
-export function arrayToHash(arr, prop = 'id') {
+export function arrayToHash(arr, level2 = null, prop = 'id', ) {
     let hash = {};
-    arr.forEach( (item) => { hash[item[prop]] = item });
+    arr.forEach( (item) => {
+        hash[item[prop]] = item;
+        if (level2) {
+            hash[item[prop]][level2] = arrayToHash(item[level2]);
+        }
+    });
     return hash;
 }
 

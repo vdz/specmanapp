@@ -179,7 +179,7 @@ export function getSections() {
 
             dispatch({
                 type: GOT_SECTIONS,
-                data: arrayToHash(data)
+                data: arrayToHash(data, 'types')
             });
         }).catch((err) => {
             console.error('getSections error!', err);
@@ -201,6 +201,8 @@ export function createSection(params) {
         }).then((res) => {
             if (!res) return;
             let data = JSON.parse(res);
+
+            data.types = arrayToHash(data.types);
 
             dispatch({
                 type: SECTION_CREATED,
@@ -226,6 +228,8 @@ export function updateSection(params) {
         }).then((res) => {
             if (!res) return;
             let data = JSON.parse(res);
+
+            data.types = arrayToHash(data.types);
 
             dispatch({
                 type: SECTION_UPDATED,

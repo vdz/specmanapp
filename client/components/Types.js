@@ -33,7 +33,7 @@ export class Types extends React.Component {
                       className="btn btn-secondary"
                       onClick={() => this.toggleNewForm()}>
             <i className="fa fa-plus fa-2" aria-hidden="true"></i>&nbsp;
-            New section
+            New type
         </button>;
 
         return  <section className='Types container'>

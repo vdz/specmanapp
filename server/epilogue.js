@@ -22,6 +22,12 @@ module.exports = {
 
         const sectionResource = epilogue.resource({
             model : db.Section,
+            include : [
+                {
+                    model : db.Type,
+                    as : 'types'
+                }
+            ],
             endpoints : ['/sections', '/sections/:id'],
         });
 

@@ -25,6 +25,7 @@ export function routerListener(location) {
     handleBase(location);
     handleProject(location);
     handleSections(location);
+    handleLocations(location);
     handleSection(location);
     handleNewSpec(location);
     handleSpec(location);
@@ -54,10 +55,7 @@ function handleProject(location) {
     const params = pattern.match(location.pathname);
     
     if (params) {
-        getProjectData(params, (obj) => {
-            store.dispatch(setProject(obj));
-            store.dispatch(getSpecs(obj.id));
-        });
+        getProjectData(params, (obj) => store.dispatch(setProject(obj)));
         return true;
     }
 
@@ -65,6 +63,17 @@ function handleProject(location) {
 }
 function handleSections(location) {
     const pattern = new UrlPattern(getRoute('sections'));
+    const params = pattern.match(location.pathname);
+
+    if (params) {
+        getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
+        return true;
+    }
+
+    return false;
+}
+function handleLocations(location) {
+    const pattern = new UrlPattern(getRoute('locations'));
     const params = pattern.match(location.pathname);
 
     if (params) {
@@ -162,7 +171,7 @@ function subForProjects(id, payload, unsub) {
     const items = store.getState().data.projects;
     if (Object.keys(items).length > 0) {
         unsub();
-        const item = store.getState().data.projects[id];
+        const item = items[id];
         payload(item);
     }
 }
@@ -171,7 +180,7 @@ function subForSections(id, payload, unsub) {
     const items = store.getState().data.sections;
     if (Object.keys(items).length > 0) {
         unsub();
-        const item = store.getState().data.sections[id];
+        const item = items[id];
         payload(item);
     }
 }
@@ -180,7 +189,7 @@ function subForSpecs(id, payload, unsub) {
     const items = store.getState().data.specs;
     if (Object.keys(items).length > 0) {
         unsub();
-        const item = store.getState().data.specs[id];
+        const item = items[id];
         payload(item);
     }
 }

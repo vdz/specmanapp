@@ -32,7 +32,7 @@ export class NewTypeCompact extends React.Component {
                     <form>
                         <div className="form-group row">
                             <div className="offset-sm-2 col-sm-10">
-                                <h3 className='display-6'>Create new location</h3>
+                                <h3 className='display-6'>Create new type</h3>
                             </div>
                         </div>
                         <div ref='group'

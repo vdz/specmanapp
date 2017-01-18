@@ -21,7 +21,8 @@ export function apiDo (opts) {
         xhr.onerror = function () {
             reject({
                 status: this.status,
-                statusText: xhr.statusText
+                statusText: xhr.statusText,
+                response: xhr.response
             });
         };
 
@@ -40,4 +41,4 @@ export function apiDo (opts) {
 
         xhr.send(params);
     });
-}
+}   

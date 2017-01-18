@@ -10,10 +10,10 @@ export class App extends React.Component {
                     <Head />
                     <Breadcrumbs />
                     <section className='row'>
-                        <div className='col-sm-9'>
+                        <div className='col-sm-8'>
                             { this.props.children }
                         </div>
-                        <div className='col-sm-3'>
+                        <div className='col-sm-4'>
                             <MiniSpecList />
                         </div>
                     </section>

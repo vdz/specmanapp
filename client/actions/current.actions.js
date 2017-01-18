@@ -31,8 +31,6 @@ export function setSection(item = {}) {
             type : SET_CURRENT_SECTION,
             item
         });
-
-        dispatch(getTypes(item.id));
     }
 }
 
