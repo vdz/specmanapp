@@ -120,27 +120,12 @@ export class Spec extends React.Component {
     resetCustomForm() {
         this.refs.new_custom_type.value = '';
         this.refs.new_custom_value.value = '';
-
-        addClass(this.refs.new_custom_type, 'sr-only');
-        removeClass(this.refs.custom_types, 'hidden');
-        this.refs.custom_types.value = config.CUSTOM_FIELD_PRESETS[0];
     }
 
-    setCustomType() {
-        const value = this.refs.custom_types.value;
-        if (value == '_new') {
-            removeClass(this.refs.new_custom_type, 'sr-only');
-            addClass(this.refs.custom_types, 'hidden');
-            this.refs.new_custom_type.focus();
-            return;
-        }
-        this.refs.new_custom_type.value = value;
-    }
-
-    addCustomField() {
+    addCustomField(type = 'custom') {
         let new_field = {
-            label : this.refs.new_custom_type.value || this.refs.custom_types.value,
-            value : this.refs.new_custom_value.value,
+            label : this.refs['new_' + type +'_type'].value,
+            value : this.refs['new_' + type +'_value'].value
         };
 
         if (!new_field.label || !new_field.value) return;
@@ -185,20 +170,23 @@ export class Spec extends React.Component {
                     { list }
                 </select>;
     }
-    
+
     getCustomFields() {
         let result = [];
         const fields = this.state.spec.fields;
 
         fields.forEach((item, index) => {
             const ref = 'custom_' + index;
+            const is_preset_type = (config.CUSTOM_FIELD_PRESETS.find((type) => (type == item.label))) ? true : false;
+
             result.push(
                 <div key={'key_'+ref}
-                          className="form-group row">
+                     className="form-group row">
                     <div className="col-sm-3 input-group">
                         <input type="text"
                                className="form-control"
                                ref={'label_'+ref}
+                               disabled={is_preset_type}
                                value={item.label}
                                onChange={() => this.editCustomField(index, 'label')}
                                placeholder="Field type" />
@@ -215,58 +203,86 @@ export class Spec extends React.Component {
                                 className="btn btn-link">Remove</button>
                     </div>
                 </div>
-                    );
+            );
         });
 
         return  <div>
-                    { result }
-                </div>;
+            { result }
+        </div>;
+    }
+
+    getNewPresets() {
+        const custom_presets = [];
+        const fields = this.state.spec.fields;
+
+        config.CUSTOM_FIELD_PRESETS.forEach(preset => {
+            if (fields.find((field) =>  (field.label == preset) )) return;
+
+            const p = preset.toLowerCase();
+
+            custom_presets.push(<div ref='group-custom-new'
+                                     key={'custom_'+p+'_block'}
+                                     className="form-group row">
+                                    <div className="col-sm-3">
+                                        <input type="text"
+                                               value={preset}
+                                               disabled={true}
+                                               placeholder="Field name"
+                                               className="form-control"
+                                               ref={'new_'+p+'_type'} />
+                                    </div>
+                                    <div className="col-sm">
+                                        <div className="input-group">
+                                            <input type="text"
+                                                   className="form-control"
+                                                   ref={'new_'+p+'_value'} />
+
+                                            <button type="button"
+                                                    onClick={() => this.addCustomField(p)}
+                                                    className="btn btn-link">
+                                                Add
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>);
+        });
+
+        return custom_presets;
+
     }
 
     getNewCustomField() {
-        const custom_presets = [];
-
-        config.CUSTOM_FIELD_PRESETS.forEach(preset => {
-            custom_presets.push(<option key={'preset-'+preset}
-                                        value={preset}>{preset}</option>);
-        });
-
         return  <div ref='group-custom-new'
-                    className="form-group row border-bottom-1">
-                    <div className="col-sm-3">
-                        <input type="text"
-                               placeholder="Field name"
-                               className="form-control sr-only"
-                               ref='new_custom_type' />
-                        <select ref='custom_types'
-                                onChange={() => this.setCustomType()}
-                                className="form-control">
-                            { custom_presets }
-                            <option value="_new">Other</option>
-                        </select>
-                    </div>
-                    <div className="col-sm">
-                        <div className="input-group">
-                            <input type="text"
-                                   className="form-control"
-                                   ref='new_custom_value' />
+                     className="form-group row border-bottom-1">
+            <div className="col-sm-3">
+                <input type="text"
+                       placeholder="Field name"
+                       className="form-control"
+                       ref='new_custom_type' />
+            </div>
+            <div className="col-sm">
+                <div className="input-group">
+                    <input type="text"
+                           className="form-control"
+                           ref='new_custom_value' />
 
-                            <button type="button"
-                                    onClick={() => this.addCustomField()}
-                                    className="btn btn-link">
-                                Add
-                            </button>
-                        </div>
-                    </div>
-                </div>;
+                    <button type="button"
+                            onClick={() => this.addCustomField()}
+                            className="btn btn-link">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>;
     }
 
     render() {
-        const { section, type, location } = this.props.current;
+        const { section } = this.props.current;
         const item = this.props.current.spec;
         if (!item.id) return <div />;
 
         const custom_fields = this.getCustomFields();
+        const new_preset_fields = this.getNewPresets();
         const new_custom_field = this.getNewCustomField();
 
         return  <section className='Spec new container'>
@@ -341,6 +357,8 @@ export class Spec extends React.Component {
                         </div>
 
                         { custom_fields }
+
+                        { new_preset_fields }
 
                         { new_custom_field }
 

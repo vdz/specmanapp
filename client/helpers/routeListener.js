@@ -100,8 +100,18 @@ function handleSpec(location) {
     const params = pattern.match(location.pathname);
 
     if (params) {
+        let spec;
+
         getProjectData(params, (obj) => { store.dispatch(setProject(obj)) });
-        getSpecData(params, (obj) => { store.dispatch(setSpec(obj)) });
+        getSpecData(params, (obj) => {
+            spec = obj;
+            store.dispatch(setSpec(obj))
+        });
+        getSectionData(params, (obj) => {
+            store.dispatch(setSection(obj));
+            spec.type_id && store.dispatch(setSpec(obj.types[spec.type_id]));
+        });
+
         return true;
     }
 
@@ -114,7 +124,7 @@ function handleSection(location) {
 
     if (params) {
         getProjectData(params, (obj) => store.dispatch(setProject(obj)));
-        getSectionData(params, (obj) => store.dispatch(setSection(obj)))
+        getSectionData(params, (obj) => store.dispatch(setSection(obj)));
         return true;
     }
 
