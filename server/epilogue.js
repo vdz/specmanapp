@@ -51,12 +51,60 @@ module.exports = {
                 {
                     model : db.Field,
                     as : 'fields'
+                },
+                {
+                    model : db.Doc,
+                    as : 'docs'
                 }
             ],
             endpoints : ['/specs', '/specs/:id'],
             search: {
                 param: 'project',
                 attributes: [ 'project_id' ]
+            }
+        });
+
+        specResource.update.write((req, res, context) => {
+            let promises = [];
+            const spec_id = context.attributes.id;
+
+            context.attributes.docs.forEach(item => {
+                item.spec_id = spec_id;
+                promises.push(db.Doc.upsert(item));
+            });
+            context.attributes.fields.forEach(item => {
+                item.spec_id = spec_id;
+                promises.push(db.Field.upsert(item));
+            });
+
+            return Promise.all(promises).then(()=> {
+                db.Spec.findOne({
+                    where : {
+                        id : parseInt(context.attributes.id)
+                    },
+                    include : [
+                        {
+                            model : db.Doc,
+                            as : 'docs'
+                        },
+                        {
+                            model : db.Field,
+                            as : 'fields'
+                        }
+                    ]
+                }).then(spec => {
+                    context.instance = spec;
+                    context.continue();
+                });
+            });
+        });
+
+        const docResource = epilogue.resource({
+            model : db.Doc,
+            endpoints : ['/docs', '/docs/:id'],
+            search: {
+                param: 'spec',
+                attributes: [ 'spec_id' ]
             }
         });
 

@@ -4,7 +4,12 @@
     "API_URL" : "//specman:2000/api",
     "CUSTOM_FIELD_PRESETS" : [
       "Company", "Manufacturer", "Color", "Quantity", "Price per unit", "Total price", "Order date", "Payment type"
-    ]
+    ],
+    "CLOUDINARY" : {
+      "name" : "hnt07nq46",
+      "key" : "443967215921813",
+      "s" : "KVaRpq3dbbnJatbxq2i_kJe4S6I"
+    }
   },
   "production" : {
     "DOM_APP_ELEMENT_ID" : "app",

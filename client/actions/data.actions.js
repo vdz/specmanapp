@@ -1,5 +1,6 @@
 import {apiDo} from '../helpers/api.js';
 import {arrayToHash} from '../helpers/utils.js';
+import { getMediaService } from '../helpers/cloudinary.js';
 
 export const GET_PROJECTS = 'get projects';
 export const GOT_PROJECTS = 'got projects';
@@ -50,6 +51,13 @@ export const SPEC_UPDATED = 'spec updated';
 export const DELETE_SPEC = 'delete spec';
 export const SPEC_DELETED = 'spec deleted';
 export const RESET_SPECS = 'reset specs';
+
+export const DELETE_DOC = 'delete doc';
+export const DOC_DELETED = 'doc deleted';
+
+export const DELETE_FIELD = 'delete field';
+export const FIELD_DELETED = 'field deleted';
+
 
 export function getGlobalData() {
     return (dispatch) => {
@@ -592,5 +600,49 @@ export function deleteSpec(id) {
 export function resetSpecs() {
     return {
         type: RESET_SPECS
+    }
+}
+
+
+export function deleteDoc(item) {
+    return (dispatch) => {
+        dispatch({
+            type: DELETE_DOC,
+            id : item.id
+        });
+
+        getMediaService().uploader.destroy(item.remote_id, (r)=>console.log('cloudinary delete',r));
+
+        apiDo({
+            method: 'delete',
+            url: `/docs/${item.id}`
+        }).then((res) => {
+            dispatch({
+                type: DOC_DELETED,
+                item
+            });
+        }).catch((err) => {
+            console.error('deleteDoc, there was an error!', err);
+        });
+    }
+}
+export function deleteField(item) {
+    return (dispatch) => {
+        dispatch({
+            type: DELETE_FIELD,
+            id : item.id
+        });
+
+        apiDo({
+            method: 'delete',
+            url: `/fields/${item.id}`
+        }).then((res) => {
+            dispatch({
+                type: FIELD_DELETED,
+                item
+            });
+        }).catch((err) => {
+            console.error('deleteField, there was an error!', err);
+        });
     }
 }

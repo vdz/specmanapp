@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import InlineEdit from 'react-edit-inline';
+import Dropzone from 'react-dropzone';
 
 import {
     setSection,
@@ -27,7 +28,8 @@ export class NewSpec extends React.Component {
                 section_id : section.id,
                 type_id : type.id,
                 location_id : location.id,
-                fields : []
+                fields : [],
+                media : []
             }
         }
     }
@@ -118,6 +120,10 @@ export class NewSpec extends React.Component {
         let new_state = { ...this.state};
         new_state.spec.fields.splice(index, 1);
         this.setState(new_state);
+    }
+
+    onDrop(files) {
+        console.log(files);
     }
 
     getCombo(type) {
@@ -224,7 +230,7 @@ export class NewSpec extends React.Component {
 
     getNewCustomField() {
         return  <div ref='group-custom-new'
-                    className="form-group row border-bottom-1">
+                    className="form-group row border-top-1 border-bottom-1">
                     <div className="col-sm-3">
                         <input type="text"
                                placeholder="Field name"
@@ -245,6 +251,32 @@ export class NewSpec extends React.Component {
                         </div>
                     </div>
                 </div>;
+    }
+
+    getNewImageField() {
+        return  <div ref='group-image-new'
+                     className="form-group row border-bottom-1">
+            <div className="col-sm-3">
+                <input type="text"
+                       placeholder="Field name"
+                       className="form-control"
+                       ref='new_image_label' />
+            </div>
+            <div className="col-sm">
+                <div className="input-group">
+                    <Dropzone className="form-control"
+                              onDrop={(params)=>this.onDrop(params)}>
+                        Drop an image here or click to choose image
+                    </Dropzone>
+
+                    <button type="button"
+                            onClick={() => this.addCustomField()}
+                            className="btn btn-link">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>;
     }
 
     render() {

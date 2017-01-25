@@ -44,7 +44,8 @@ db.Spec.belongsTo(db.Type);
 db.Spec.hasMany(db.Field, { as : 'fields' });
 db.Field.belongsTo(db.Spec);
 
-db.Media.belongsTo(db.Spec);
+db.Spec.hasMany(db.Doc, { as : 'docs' });
+db.Doc.belongsTo(db.Spec);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

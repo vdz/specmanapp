@@ -13,7 +13,10 @@ import {
     TYPE_CREATED,
     TYPE_UPDATED,
     TYPE_DELETED,
-    SPEC_CREATED
+    SPEC_CREATED,
+    SPEC_UPDATED,
+    DOC_DELETED,
+    FIELD_DELETED
 } from  '../actions/data.actions.js';
 
 export const default_state = {
@@ -93,7 +96,7 @@ export function reducer(state = default_state, action) {
         }
         case TYPE_DELETED : {
             if (action.item.section_id == state.section.id) {
-                let new_types = {...state.section.types}
+                let new_types = [...state.section.types];
                 delete new_types[action.item.id];
                 return {
                     ...state,
@@ -105,9 +108,39 @@ export function reducer(state = default_state, action) {
             }
         }
 
-        case SPEC_CREATED : return {
+        case SPEC_CREATED :
+        case SPEC_UPDATED : return {
             ...state,
             spec : action.data
+        }
+
+        case DOC_DELETED : {
+            if (action.item.spec_id == state.spec.id) {
+                let new_docs = [...state.spec.docs];
+                delete new_docs[action.item.id];
+
+                return {
+                    ...state,
+                    spec : {
+                        ...state.spec,
+                        docs : new_docs
+                    }
+                }
+            }
+        }
+        case FIELD_DELETED : {
+            if (action.item.spec_id == state.spec.id) {
+                let new_fields = [...state.spec.fields];
+                delete new_fields[action.item.id];
+
+                return {
+                    ...state,
+                    spec : {
+                        ...state.spec,
+                        fields : new_fields
+                    }
+                }
+            }
         }
     }
 

@@ -29,6 +29,8 @@ import {
     SPEC_DELETED,
     RESET_SPECS,
 
+    DOC_DELETED,
+    FIELD_DELETED
 } from  '../actions/data.actions.js';
 
 export const default_state = {
@@ -197,6 +199,29 @@ export function reducer(state = default_state, action) {
         case RESET_SPECS : return {
             ...state,
             specs : {...default_state.specs}
+        }
+        
+        case DOC_DELETED : {
+            let updated_spec = {
+                ...state.specs[action.item.spec_id]
+            };
+            delete updated_spec.docs[action.item.id];
+
+            return {
+                ...state,
+                specs : updated_spec
+            }
+        }
+        case FIELD_DELETED : {
+            let updated_spec = {
+                ...state.specs[action.item.spec_id]
+            };
+            delete updated_spec.fields[action.item.id];
+
+            return {
+                ...state,
+                fields : updated_spec
+            }
         }
 
     }

@@ -7,7 +7,7 @@ import {
     setLocation,
     setType
 } from '../actions/current.actions.js';
-import { updateSpec, deleteSpec } from '../actions/data.actions.js';
+import { updateSpec, deleteSpec, deleteField, deleteDoc } from '../actions/data.actions.js';
 import { push } from 'react-router-redux';
 import { buildRoute } from '../config/routes.js';
 import { addClass, removeClass } from '../helpers/utils.js';
@@ -28,6 +28,7 @@ export class Spec extends React.Component {
                 type_id : type.id,
                 location_id : location.id,
                 fields : [],
+                docs : [],
                 ...spec
             }
         }
@@ -122,6 +123,10 @@ export class Spec extends React.Component {
         this.refs.new_custom_value.value = '';
     }
 
+    resetImageForm() {
+        this.refs.new_image_label.value = this.refs.new_image_label.defaultValue;
+    }
+
     addCustomField(type = 'custom') {
         let new_field = {
             label : this.refs['new_' + type +'_type'].value,
@@ -145,8 +150,64 @@ export class Spec extends React.Component {
 
     removeCustomField(index) {
         let new_state = { ...this.state};
+        let field = new_state.spec.fields[index];
         new_state.spec.fields.splice(index, 1);
         this.setState(new_state);
+
+        if (field.id) { this.props.deleteField(field);}
+    }
+
+    mapUploadedResults(results) {
+        return results.map(item => {
+           return {
+               url : item.url,
+               thumb : item.thumbnail_url,
+               remote_id : item.public_id,
+               meta : '', //JSON.stringify(item),
+               label : item.original_filename
+           }
+        });
+    }
+
+    addImageFields(fields) {
+        let new_state = {...this.state};
+        const label = this.refs.new_image_label.value;
+
+        this.resetImageForm();
+
+        if (!label || !fields.length) return;
+
+        fields.forEach(field => {
+            new_state.spec.docs.push({
+                ...field,
+                label
+            })
+        });
+        this.setState(new_state);
+    }
+
+    removeImageField(index) {
+        let new_state = { ...this.state};
+        let doc = new_state.spec.docs[index];
+        new_state.spec.docs.splice(index, 1);
+        this.setState(new_state);
+
+        if (doc.id) { this.props.deleteDoc(doc);}
+    }
+
+    openImageWidget() {
+        cloudinary.openUploadWidget({
+            cloud_name : config.CLOUDINARY.name,
+            upload_preset : 'mtuq44zw',
+            multiple : true,
+            client_allowed_formats : ['jpg','gif','jpeg','png','pdf']
+        }, (err, res) => {
+            if (err) {
+                console.log('image upload:', err);
+                return;
+            }
+            this.addImageFields(this.mapUploadedResults(res));
+        })
     }
 
     getCombo(type) {
@@ -175,7 +236,7 @@ export class Spec extends React.Component {
         let result = [];
         const fields = this.state.spec.fields;
 
-        fields.forEach((item, index) => {
+        fields && fields.forEach((item, index) => {
             const ref = 'custom_' + index;
             const is_preset_type = (config.CUSTOM_FIELD_PRESETS.find((type) => (type == item.label))) ? true : false;
 
@@ -209,6 +270,33 @@ export class Spec extends React.Component {
         return  <div>
             { result }
         </div>;
+    }
+
+    getImageFields() {
+        let result =[];
+        const fields = this.state.spec.docs;
+
+        fields && fields.forEach((item, index) => {
+            const ref = 'image_' + index;
+
+            result.push(
+                <figure key={'figure_'+index} className="figure">
+                    <img src={item.thumb}
+                         ref={ref}
+                         className="img-thumbnail figure-image" />
+                    <figcaption className="figure-caption">
+                        {item.label}&nbsp;
+                        <a onClick={()=>this.removeImageField(index)}
+                           href="javascript:;"><i className="fa fa-times fa-4" aria-hidden="true"></i></a>
+                    </figcaption>
+                </figure>
+            )
+        });
+        return  <div className="row">
+                    <div className="col-sm">
+                        { result }
+                    </div>
+                </div>;
     }
 
     getNewPresets() {
@@ -253,7 +341,7 @@ export class Spec extends React.Component {
 
     getNewCustomField() {
         return  <div ref='group-custom-new'
-                     className="form-group row border-bottom-1">
+                     className="form-group row border-top-1 border-bottom-1">
             <div className="col-sm-3">
                 <input type="text"
                        placeholder="Field name"
@@ -276,6 +364,35 @@ export class Spec extends React.Component {
         </div>;
     }
 
+    getNewImageField() {
+        return  <div ref='group-image-new'
+                     className="form-group row border-bottom-1">
+            <div className="col-sm-3">
+                <button type="button"
+                        onClick={()=>this.openImageWidget()}
+                        className="btn btn-outline-primary">
+                    Upload an image
+                </button>
+            </div>
+            <div className="col-sm">
+                <div className="input-group">
+                    <input type="text"
+                           placeholder="Image label"
+                           className="form-control"
+                           defaultValue="New image"
+                           ref='new_image_label' />
+
+                    <button type="button"
+                            onClick={() => this.addCustomField()}
+                            className="btn btn-link">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>;
+    }
+
+
     render() {
         const { section } = this.props.current;
         const item = this.props.current.spec;
@@ -284,6 +401,8 @@ export class Spec extends React.Component {
         const custom_fields = this.getCustomFields();
         const new_preset_fields = this.getNewPresets();
         const new_custom_field = this.getNewCustomField();
+        const new_image_field = this.getNewImageField();
+        const image_fields = this.getImageFields();
 
         return  <section className='Spec new container'>
                         <div className="form-group row">
@@ -362,6 +481,9 @@ export class Spec extends React.Component {
 
                         { new_custom_field }
 
+                        { image_fields }
+                        { new_image_field }
+
                         <div className="form-group row">
                             <div className="col-sm">
                                 <button type="button"
@@ -396,5 +518,7 @@ export default connect(mapStateToProps, {
     set_type : setType,
     updateSpec,
     deleteSpec,
+    deleteField,
+    deleteDoc,
     push
 })(Spec);
