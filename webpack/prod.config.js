@@ -4,7 +4,7 @@ var uglify = new webpack.optimize.UglifyJsPlugin({
     compressor: { warnings: false },
     output: { comments: false },
     minimize: true,
-    sourceMap: true, //_ false
+    sourceMap: false,
     mangle: true
 });
 
