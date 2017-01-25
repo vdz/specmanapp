@@ -1,7 +1,7 @@
 {
   "dev" : {
     "DOM_APP_ELEMENT_ID" : "app",
-    "API_URL" : "//specman:2000/api",
+    "API_URL" : "/api",
     "CUSTOM_FIELD_PRESETS" : [
       "Company", "Manufacturer", "Color", "Quantity", "Price per unit", "Total price", "Order date", "Payment type"
     ],
@@ -13,7 +13,7 @@
   },
   "production" : {
     "DOM_APP_ELEMENT_ID" : "app",
-    "API_URL" : "//specman.herokuapp.com/api",
+    "API_URL" : "/api",
     "CUSTOM_FIELD_PRESETS" : [
       "Company", "Manufacturer", "Color", "Quantity", "Price per unit", "Total price", "Order date", "Payment type"
     ]
