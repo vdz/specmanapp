@@ -3,6 +3,7 @@ import React from 'react';
 import Head from '../components/Head.js';
 import Breadcrumbs from '../components/Breadcrumbs.js';
 import MiniSpecList from '../components/MiniSpecList.js';
+import ModalController from '../components/ModalController.js';
 
 export class App extends React.Component {
     render() {
@@ -17,6 +18,7 @@ export class App extends React.Component {
                             <MiniSpecList />
                         </div>
                     </section>
+                    <ModalController />
                 </section>;
     }
 }

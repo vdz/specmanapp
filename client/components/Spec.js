@@ -12,6 +12,7 @@ import { push } from 'react-router-redux';
 import { buildRoute } from '../config/routes.js';
 import { addClass, removeClass } from '../helpers/utils.js';
 import { config } from '../config/config.js';
+import  { showModal } from '../actions/ui.actions.js';
 
 export class Spec extends React.Component {
     constructor(props) {
@@ -141,10 +142,11 @@ export class Spec extends React.Component {
         this.setState(new_state);
     }
 
-    editCustomField(index, prop) {
-        const value = this.refs[prop+'_custom_'+index].value;
+    editCustomField(index, prop, collection = 'fields') {
+        const field_name = prop+'_'+collection+'_'+index;
+        const value = this.refs[field_name].value;
         let new_state = {...this.state};
-        new_state.spec.fields[index][prop] = value;
+        new_state.spec[collection][index][prop] = value;
         this.setState(new_state);
     }
 
@@ -209,7 +211,7 @@ export class Spec extends React.Component {
             this.addImageFields(this.mapUploadedResults(res));
         })
     }
-
+    
     getCombo(type) {
         let list = [];
         const items = (type == 'type')
@@ -237,12 +239,12 @@ export class Spec extends React.Component {
         const fields = this.state.spec.fields;
 
         fields && fields.forEach((item, index) => {
-            const ref = 'custom_' + index;
+            const ref = 'fields_' + index;
             const is_preset_type = (config.CUSTOM_FIELD_PRESETS.find((type) => (type == item.label))) ? true : false;
 
             result.push(
                 <div key={'key_'+ref}
-                     className="form-group row">
+                     className='form-group row'>
                     <div className="col-sm-3 input-group">
                         <input type="text"
                                className="form-control"
@@ -277,25 +279,38 @@ export class Spec extends React.Component {
         const fields = this.state.spec.docs;
 
         fields && fields.forEach((item, index) => {
-            const ref = 'image_' + index;
+            const ref = 'docs_' + index;
 
             result.push(
-                <figure key={'figure_'+index} className="figure">
-                    <img src={item.thumb}
-                         ref={ref}
-                         className="img-thumbnail figure-image" />
-                    <figcaption className="figure-caption">
-                        {item.label}&nbsp;
-                        <a onClick={()=>this.removeImageField(index)}
-                           href="javascript:;"><i className="fa fa-times fa-4" aria-hidden="true"></i></a>
-                    </figcaption>
-                </figure>
+                <div className='row form-group' key={'custom_image_block_'+index}>
+                    <div className='col-sm-3'>
+                        <a href={item.url}
+                           title='Cmd+click to open the image in a new tab'
+                           className="figure">
+                            <img src={item.thumb}
+                                 ref={ref}
+                                 className="img-thumbnail image-fluid rounded figure-image" />
+                        </a>
+                    </div>
+                    <div className='col-sm'>
+                        <div className='input-group'>
+                            <input type="text"
+                                   className="form-control"
+                                   ref={'label_'+ref}
+                                   value={item.label}
+                                   onChange={() => this.editCustomField(index, 'label', 'docs')}
+                                   placeholder="Image label" />
+
+                            <button type="button"
+                                    onClick={() => this.removeImageField(index)}
+                                    className="btn btn-link">Remove</button>
+                        </div>
+                    </div>
+                </div>
             )
         });
-        return  <div className="row">
-                    <div className="col-sm">
-                        { result }
-                    </div>
+        return  <div>
+                    { result }
                 </div>;
     }
 
@@ -303,14 +318,14 @@ export class Spec extends React.Component {
         const custom_presets = [];
         const fields = this.state.spec.fields;
 
-        config.CUSTOM_FIELD_PRESETS.forEach(preset => {
+        config.CUSTOM_FIELD_PRESETS.forEach((preset, index) => {
             if (fields.find((field) =>  (field.label == preset) )) return;
 
             const p = preset.toLowerCase();
 
             custom_presets.push(<div ref='group-custom-new'
                                      key={'custom_'+p+'_block'}
-                                     className="form-group row">
+                                     className='form-group row'>
                                     <div className="col-sm-3">
                                         <input type="text"
                                                value={preset}
@@ -520,5 +535,6 @@ export default connect(mapStateToProps, {
     deleteSpec,
     deleteField,
     deleteDoc,
-    push
+    push,
+    showModal
 })(Spec);
