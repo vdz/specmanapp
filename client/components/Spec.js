@@ -283,11 +283,11 @@ export class Spec extends React.Component {
 
             result.push(
                 <div className='row form-group' key={'custom_image_block_'+index}>
-                    <div className='col-sm-3'>
+                    <div className='col-sm-4'>
                         <a href={item.url}
                            title='Cmd+click to open the image in a new tab'
                            className="figure">
-                            <img src={item.thumb}
+                            <img src={item.url}
                                  ref={ref}
                                  className="img-thumbnail image-fluid rounded figure-image" />
                         </a>
