@@ -9,7 +9,7 @@ import Locations from '../components/Locations.js';
 import Types from '../components/Types.js';
 import NewSpec from '../components/NewSpec.js';
 import Spec from '../components/Spec.js';
-import { Print } from '../containers/Print.js';
+import Print from '../containers/Print.js';
 
 export const default_routes = {
     base : '/',
