@@ -9,6 +9,7 @@ import Locations from '../components/Locations.js';
 import Types from '../components/Types.js';
 import NewSpec from '../components/NewSpec.js';
 import Spec from '../components/Spec.js';
+import { Print } from '../containers/Print.js';
 
 export const default_routes = {
     base : '/',
@@ -19,7 +20,9 @@ export const default_routes = {
     locations : '/project/:id/locations',
     types : '/project/:id/section/:sectionId/types',
     spec : '/project/:id/spec/:specId',
-    new_spec : '/project/:id/newspec'
+    new_spec : '/project/:id/newspec',
+    print : '/print',
+    booklet : '/print/project/:id'
 };
 
 let routes = {...default_routes};
@@ -53,5 +56,7 @@ export default () => {
                     <Route path={routes.new_spec} component={NewSpec} />
                     <Route path={routes.spec} component={Spec} />
                 </Route>
+                <Route path={routes.print} component={Print} />
+                <Route path={routes.booklet} component={Print} />
             </Route>;
 }

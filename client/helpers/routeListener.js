@@ -29,6 +29,7 @@ export function routerListener(location) {
     handleSection(location);
     handleNewSpec(location);
     handleSpec(location);
+    handlePrint(location);
 }
 
 // URL Handlers
@@ -54,6 +55,17 @@ function handleProject(location) {
     const pattern = new UrlPattern(getRoute('project'));
     const params = pattern.match(location.pathname);
     
+    if (params) {
+        getProjectData(params, (obj) => store.dispatch(setProject(obj)));
+        return true;
+    }
+
+    return false;
+}
+function handlePrint(location) {
+    const pattern = new UrlPattern(getRoute('booklet'));
+    const params = pattern.match(location.pathname);
+
     if (params) {
         getProjectData(params, (obj) => store.dispatch(setProject(obj)));
         return true;

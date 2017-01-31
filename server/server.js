@@ -18,6 +18,10 @@ app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
 app.use('/css', express.static(path.join(__dirname,'..', 'public/css')));
 app.use('/js', express.static(path.join(__dirname,'..', 'public/js')));
 
+app.all('/print/*', (req, res) => {
+   res.sendFile(path.join(__dirname, '../print.html'));
+});
+
 app.all('/*', function (req, res) {
     res.sendFile(path.join(__dirname, '../index.html'));
 });
