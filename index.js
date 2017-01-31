@@ -25,7 +25,7 @@ function init(options) {
         options.target = document.getElementById(options.target);
     }
     const signin = document.getElementById('signin');
-    signin.classList.add('hidden');
+    signin && signin.classList.add('hidden');
 
     if (options.user) {
         store.dispatch(setUserProfile(options.user));

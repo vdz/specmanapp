@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { TOC } from '../components/print/TOC.js';
-import { SectionPrintList } from '../components/print/SectionPrintList.js';
+import PrintListByMode from '../components/print/PrintListByMode.js';
 import { LegalPrint } from '../components/print/LegalPrint.js';
 import PrintSettings from '../components/print/PrintSettings.js';
 
@@ -15,8 +15,8 @@ export class Print extends React.Component {
                 <PrintSettings />
                 <section className='print-content'>
                     <section className="front-cover"></section>
-                    <TOC project_id={project_id} />
-                    <SectionPrintList project_id={project_id} />
+                    <TOC />
+                    <PrintListByMode />
                     <LegalPrint project_id={project_id} />
                 </section>
             </section>

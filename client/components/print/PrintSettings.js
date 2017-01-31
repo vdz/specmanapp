@@ -18,7 +18,7 @@ export class PrintSettings extends React.Component {
                         key={'btn-'+mode}
                         className={'btn ' + ((mode == this.props.print_mode) ? 'btn-primary disabled' : 'btn-secondary')}
                         onClick={() => this.setMode(mode)}>
-                    Sort by <strong>mode</strong></button>
+                    Sort by <strong>{ mode }</strong></button>
             );
         });
 
