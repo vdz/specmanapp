@@ -1,0 +1,62 @@
+.Spec {
+    page-break-inside: avoid;
+    clear: both;
+    height: 50%;
+    padding-bottom: 0.5cm;
+    margin-bottom: 0.5cm;
+
+    .spec-title {
+        margin-left: 4cm;
+        font-size: 16pt;
+        font-weight: bold;
+    }
+    .spec-desc {
+        margin-left: 4cm;
+    }
+    .spec-info {
+        margin-top: 1cm;
+        overflow: hidden;
+        display: table;
+        table-layout: fixed;
+        vertical-align: top;
+
+        .spec-images {
+            display: table-cell;
+            width: 50%;
+
+            img {
+                max-height: 3in;
+            }
+        }
+
+        .spec-fields {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+
+            dl {
+                margin-left: 1cm;
+            }
+
+            dt, dd {
+                display: block;
+            }
+
+            dt {
+                font-weight: bold;
+            }
+
+            dd {
+                margin-bottom: 0.3cm;
+            }
+        }
+    }
+}
+
+@page {
+    :left {
+    }
+
+    :right {
+    }
+}

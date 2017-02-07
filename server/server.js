@@ -8,6 +8,8 @@ const env = process.env.NODE_ENV || 'dev';
 const path = require('path');
 const port = (env == 'dev') ? 2000 : process.env.PORT;
 
+const docraptor = require('./docraptor.js');
+
 app.use('*', cors());
 app.options('*', cors());
 
@@ -17,10 +19,13 @@ app.use('/images', express.static(path.join(__dirname,'..', 'public/images')));
 app.use('/fonts', express.static(path.join(__dirname,'..', 'public/fonts')));
 app.use('/css', express.static(path.join(__dirname,'..', 'public/css')));
 app.use('/js', express.static(path.join(__dirname,'..', 'public/js')));
+app.use('/pdf', express.static(path.join(__dirname,'..', 'public/pdf')));
 
 app.all('/print/*', (req, res) => {
    res.sendFile(path.join(__dirname, '../print.html'));
 });
+
+app.post('/docraptor', docraptor.handler);
 
 app.all('/*', function (req, res) {
     res.sendFile(path.join(__dirname, '../index.html'));

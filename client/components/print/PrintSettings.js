@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { setPrintMode } from '../../actions/ui.actions.js';
+import { docraptor } from '../../helpers/docraptor.js';
 
 const PRINT_MODES = ['section', 'location', 'name']
 
@@ -9,6 +10,25 @@ export class PrintSettings extends React.Component {
 
     setMode(mode) {
         this.props.setPrintMode(mode);
+    }
+    
+    print() {
+        const controls = this.refs.controls;
+        controls.classList.add('hidden');
+
+        docraptor({
+            method : 'post',
+            params : {
+                doc : document.documentElement.innerHTML,
+                name : this.props.project.name.replace(' ', '_')
+            }
+        }).then((r) => {
+            r = JSON.parse(r);
+            if (r.url) {
+                controls.classList.remove('hidden');
+                this.refs.link.setAttribute('href', r.url);
+            }
+        })
     }
 
     getSortControls() {
@@ -32,8 +52,10 @@ export class PrintSettings extends React.Component {
     render() {
         const sort = this.getSortControls();
         return (
-            <section className="PrintSettings">
+            <section ref='controls' className="PrintSettings">
                 { sort }
+                <button onClick={() => this.print()}>Print</button>
+                <a ref='link'>Download</a>
             </section>
         )
     }
@@ -41,7 +63,8 @@ export class PrintSettings extends React.Component {
 
 export function mapStateToProps(state) {
     return {
-        print_mode : state.ui.print_mode
+        print_mode : state.ui.print_mode,
+        project : state.current.project
     }
 }
 

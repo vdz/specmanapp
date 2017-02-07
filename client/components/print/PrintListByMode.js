@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { SpecPrintModule } from './SpecPrintModule.js';
 import { sortItemsByParam } from '../../helpers/utils.js';
 
 export class PrintListByMode extends React.Component {
@@ -19,28 +20,18 @@ export class PrintListByMode extends React.Component {
             let inner = [];
             sorted_ids.filter((id) => {
                 if (specs[id][cat_id] && specs[id][cat_id] == category_id) {
-                    inner.push(
-                        <li key={'tiny-spec-list-item-'+id}
-                            onClick={() => this.navigate(id)}
-                            className="">
-                            <a href="javascript:;">{specs[id].name}</a>
-                        </li>);
+                    inner.push(<SpecPrintModule key={'spec-print-'+id} spec={specs[id]} />);
                 }
             });
 
             if (inner.length) {
                 list.push(
-                    <div key={'spec-list-for-'+param+'-'+category_id}
-                         className='list-group-item'>
-                        <h6 className="d-flex w-100 justify-content-between">
+                    <div key={'chapter-'+param+'-'+category_id}
+                         className={'chapter ' + param}>
+                        <h2 className='category-title' id={param+'_'+category_id}>
                             { categories[category_id].name }
-                        <span className='badge badge-info badge-pill'>
-                            { inner.length }
-                        </span>
-                        </h6>
-                        <ul className="list-unstyled mb-0">
-                            { inner }
-                        </ul>
+                        </h2>
+                        { inner }
                     </div>);
             }
         });
@@ -48,36 +39,28 @@ export class PrintListByMode extends React.Component {
         let inner = [];
         sorted_ids.forEach((id) => {
             if (!specs[id][cat_id]) {
-                inner.push(
-                    <li key={'tiny-spec-list-item-'+id}
-                        onClick={() => this.navigate(id)}
-                        className="">
-                        <a href="javascript:;">{specs[id].name}</a>
-                    </li>
-                );
+                inner.push(<SpecPrintModule key={'spec-print-'+id} spec={specs[id]} />);
             }
         });
 
         if (inner.length) {
             list.push(
-                <div key={'spec-list-for-no-'+param}
-                     className='list-group-item'>
-                    <h6 className="d-flex w-100 justify-content-between">
-                        Unspecified {param}
-                    <span className='badge badge-info badge-pill'>
-                        { inner.length }
-                    </span>
-                    </h6>
-                    <ul className="list-unstyled mb-0">
-                        { inner }
-                    </ul>
-                </div>);
+                <div key={'chapter-no-'+param}
+                     className={'chapter ' + param}>
+                    <h2 className='category-title' id={param+'_unspecified'}>
+                        Unspecified { param }
+                    </h2>
+                    { inner }
+                </div>
+            );
         }
 
 
-        return  <div className='list-group'>
-            { list }
-        </div>;
+        return  (
+            <div className='content'>
+                { list }
+            </div>
+        );
     }
 
     getContentByName() {
@@ -86,28 +69,14 @@ export class PrintListByMode extends React.Component {
         let list =[];
 
         sorted_ids.forEach((id, index) => {
-            list.push(
-                <li key={'tiny-spec-list-item-'+id}
-                    onClick={() => this.navigate(id)}
-                    className="">
-                    <a href="javascript:;">{specs[id].name}</a>
-                </li>
-            );
+            list.push(<SpecPrintModule key={'spec-print-'+id} spec={specs[id]} />);
         });
 
-        return  <div className='list-group'>
-            <div className="list-group-item">
-                <h6 className="d-flex w-100 justify-content-between">
-                    All specs
-                        <span className='badge badge-info badge-pill'>
-                            { sorted_ids.length }
-                        </span>
-                </h6>
-                <ol className="list-unstyled">
-                    { list }
-                </ol>
+        return  (
+            <div className='content'>
+                { list }
             </div>
-        </div>;
+        );
 
     }
 
@@ -115,6 +84,10 @@ export class PrintListByMode extends React.Component {
         const list = (this.props.print_mode == 'name')
             ? this.getContentByName()
             : this.getContentByParam(this.props.print_mode);
+
+        if (Object.keys(this.props.data.specs).length) {
+            window.docPrintReady = true;
+        }
 
         return (
             <section>

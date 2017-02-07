@@ -41,5 +41,11 @@ function init(options) {
     );
 }
 
+window.docPrintReady = false;
+window.docLoaded = false;
+
+window.onload = (e) => {
+    window.docLoaded = true;
+}
 window.init = init;
 window.set_user = (user) => store.dispatch(setUserProfile(user));

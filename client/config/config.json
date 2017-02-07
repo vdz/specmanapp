@@ -2,6 +2,7 @@
   "dev" : {
     "DOM_APP_ELEMENT_ID" : "app",
     "API_URL" : "/api",
+    "PRINT_API_URL" : "/docraptor",
     "CUSTOM_FIELD_PRESETS" : [
       "Company", "Manufacturer", "Color", "Quantity", "Price per unit", "Total price", "Order date", "Payment type"
     ],
@@ -9,6 +10,15 @@
       "name" : "hnt07nq46",
       "key" : "443967215921813",
       "s" : "KVaRpq3dbbnJatbxq2i_kJe4S6I"
+    },
+    "DOCRAPTOR" : {
+      "api_key" : "JFd9qZHboOcLdu6Bj2r",
+      "settings" : {
+        "test": true,
+        "document_content": "<html><body>Hello</body></html>",
+        "type": "pdf",
+        "javascript": true
+      }
     }
   },
   "production" : {
@@ -16,6 +26,9 @@
     "API_URL" : "/api",
     "CUSTOM_FIELD_PRESETS" : [
       "Company", "Manufacturer", "Color", "Quantity", "Price per unit", "Total price", "Order date", "Payment type"
-    ]
+    ],
+    "DOCRAPTOR" : {
+      "api_key" : "JFd9qZHboOcLdu6Bj2r"
+    }
   }
 }
