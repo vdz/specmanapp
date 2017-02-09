@@ -81,7 +81,7 @@ export class ProjectListItem extends React.Component {
                             Print
                         </button>
 
-                        <button className='btn btn-link text-danger'
+                        <button className='btn btn-danger'
                                 onClick={(e) => {
                                     this.delete();
                                     e.stopPropagation();
