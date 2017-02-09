@@ -1,0 +1,65 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font: inherit; font-size: 100%; vertical-align: baseline; }
+
+html { line-height: 1; }
+
+ol, ul { list-style: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+caption, th, td { text-align: left; font-weight: normal; vertical-align: middle; }
+
+q, blockquote { quotes: none; }
+q:before, q:after, blockquote:before, blockquote:after { content: ""; content: none; }
+
+a img { border: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }
+
+.front-cover .project { string-set: project content(); }
+
+@page { size: 5.5in 8.5in; margin: 1in;
+  @top-left ,
+    @top-right
+    @top-center { background-color: #ccc; }
+  @top-center { text-align: center; margin-top: 1em; } }
+@page A { @top-center { font-size: 7.8pt; color: #999; text-align: center; content: string(project) " - " string(category); } }
+@page A:left { margin-left: 1.2in; margin-right: 1in;
+  @bottom-left-corner { content: counter(page); font-size: 9.6pt; color: #999; vertical-align: top; text-align: right; } }
+@page A:right { margin-right: 1.2in; margin-left: 1in;
+  @bottom-right-corner { content: counter(page); font-size: 9.6pt; color: #999; vertical-align: top; text-align: left; } }
+@page B:right {}
+@page B:left {}
+@page C { background-color: #000; }
+body { font-family: "Neuton"; font-size: 12pt; font-weight: 400; }
+
+.cover { page: C; }
+.cover .project { margin-top: 38%; color: #fff; font-weight: 300; font-size: 60pt; text-align: center; }
+.cover .credit { margin: 10mm auto; text-align: center; color: #DDB756; font-size: 19.2pt; letter-spacing: 1pt; font-weight: 400; }
+.cover .credit .logo { margin: 45mm auto; display: block; width: 2.5in; }
+
+.chapter { page: A; }
+
+.category-title { string-set: category content(); margin-left: 0; margin-top: 30%; font-size: 88pt; font-weight: 200; page-break-before: always; page-break-after: always; color: #DDB756; page: C; }
+
+.hidden { display: none; }
+
+.page { page-break-before: always; }
+
+.PrintSettings { width: 100%; padding: 20px; background-color: #f0f0f0; }
+.PrintSettings button { margin: 5px; }
+
+.Spec { page-break-inside: avoid; clear: both; padding-bottom: 5mm; }
+.Spec .spec-title { margin-left: 0; margin-bottom: 2mm; font-size: 18pt; font-weight: 800; }
+.Spec .spec-desc { margin-left: 0; color: #666; }
+.Spec .spec-info { margin-top: 5mm; overflow: hidden; vertical-align: top; page-break-inside: avoid; }
+.Spec .spec-info .spec-images { display: block; float: left; width: 50%; }
+.Spec .spec-info .spec-images figure { margin-bottom: 3mm; }
+.Spec .spec-info .spec-images img { max-height: 2.8in; max-width: 100%; display: block; margin-bottom: 3mm; }
+.Spec .spec-info .spec-images figcaption { font-weight: 400; font-style: italic; font-size: 9pt; color: #666; padding-bottom: 3mm; border-bottom: 1pt solid #ccc; }
+.Spec .spec-info .spec-fields { display: block; margin: 0; float: left; width: 50%; vertical-align: top; }
+.Spec dl { margin-left: 1cm; }
+.Spec dt, .Spec dd { display: block; margin-left: 10mm; }
+.Spec dt { font-weight: 400; font-style: italic; color: #666; }
+.Spec dd { margin-bottom: 0.3cm; font-size: 14.4pt; }
+
+/*# sourceMappingURL=print.css.map */

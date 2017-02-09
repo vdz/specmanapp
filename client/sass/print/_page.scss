@@ -21,7 +21,7 @@
         font-size: 0.65 * $base-font-size;
         color: #999;
         text-align: center;
-        content: string(project) " \x97 " string(category);
+        content: string(project) " - " string(category);
     }
 }
 @page A:left {
