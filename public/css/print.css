@@ -55,7 +55,7 @@ body { font-family: "Neuton"; font-size: 12pt; font-weight: 400; }
 .Spec .spec-info .spec-images { display: block; float: left; width: 50%; }
 .Spec .spec-info .spec-images figure { margin-bottom: 3mm; }
 .Spec .spec-info .spec-images img { max-height: 2.8in; max-width: 100%; display: block; margin-bottom: 3mm; }
-.Spec .spec-info .spec-images figcaption { font-weight: 400; font-style: italic; font-size: 9pt; color: #666; padding-bottom: 3mm; border-bottom: 1pt solid #ccc; }
+.Spec .spec-info .spec-images figcaption { font-weight: 400; font-style: italic; font-size: 9pt; color: #666; padding-bottom: 3mm; }
 .Spec .spec-info .spec-fields { display: block; margin: 0; float: left; width: 50%; vertical-align: top; }
 .Spec dl { margin-left: 1cm; }
 .Spec dt, .Spec dd { display: block; margin-left: 10mm; }

@@ -27,7 +27,8 @@ export class Projects extends React.Component {
 
     render() {
         const new_project = (this.state.show_new_form)
-            ? <NewProjectCompact save={(params) => this.newProject(params)} cancel={() => this.toggleNewForm()} />
+            ? <NewProjectCompact save={(params) => this.newProject(params)}
+                                 cancel={() => this.toggleNewForm()} />
             : <button type="button"
                       className="btn btn-secondary"
                       onClick={() => this.toggleNewForm()}>

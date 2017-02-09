@@ -24,7 +24,13 @@ export class ProjectList extends React.Component {
             id
         }))
     }
-    
+
+    print(id) {
+        document.location.href = buildRoute('booklet', {
+            id
+        });
+    }
+
     getProjectItems() {
         const { projects } = this.props;
         let result = [];
@@ -33,6 +39,7 @@ export class ProjectList extends React.Component {
                                          update={(params) => this.save(params)}
                                          delete={(params) => this.delete(params)}
                                          manage={(params) => this.manage(params)}
+                                         print={(params) => this.print(params)}
                                          project={projects[id]} />)
         });
         return result;

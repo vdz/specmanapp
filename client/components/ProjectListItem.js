@@ -9,6 +9,11 @@ export class ProjectListItem extends React.Component {
             ...params
         });
     }
+    
+    print() {
+        const { id } = this.props.project;
+        this.props.print(id);
+    }
 
     ['delete']() {
         const { id } = this.props.project;
@@ -60,9 +65,22 @@ export class ProjectListItem extends React.Component {
                         </p>
                     </div>
                     <div className='col-sm controls uncoverme'>
-                        <button className='btn btn-primary'>
+                        <button className='btn mr-3 btn-primary'
+                                onClick={(e)=> {
+                                    this.choose()
+                                    e.stopPropagation();
+                                }}>
                             Manage
                         </button>
+
+                        <button className='btn mr-3 btn-secondary'
+                                onClick={(e)=> {
+                                    this.print()
+                                    e.stopPropagation();
+                                }}>
+                            Print
+                        </button>
+
                         <button className='btn btn-link text-danger'
                                 onClick={(e) => {
                                     this.delete();
