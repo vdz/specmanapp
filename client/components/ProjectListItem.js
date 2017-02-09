@@ -67,7 +67,7 @@ export class ProjectListItem extends React.Component {
                     <div className='col-sm controls uncoverme'>
                         <button className='btn mr-3 btn-primary'
                                 onClick={(e)=> {
-                                    this.choose()
+                                    this.choose();
                                     e.stopPropagation();
                                 }}>
                             Manage
@@ -75,7 +75,7 @@ export class ProjectListItem extends React.Component {
 
                         <button className='btn mr-3 btn-secondary'
                                 onClick={(e)=> {
-                                    this.print()
+                                    this.print();
                                     e.stopPropagation();
                                 }}>
                             Print
