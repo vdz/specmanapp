@@ -1,0 +1,48 @@
+body {
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    font-weight: $f-normal;
+}
+
+.cover {
+    page: C;
+
+    .project {
+        margin-top: 38%;
+        color: #fff;
+        font-weight: 300;
+        font-size: 60pt;
+        text-align: center;
+    }
+
+    .credit {
+        margin: 10mm auto;
+        text-align: center;
+        color: $accent-color-yellow;
+        font-size: $base-font-size*1.6;
+        letter-spacing: 1pt;
+        font-weight: $f-normal;
+
+        .logo {
+            margin: 45mm auto;
+            display: block;
+            width: 2.5in;
+        }
+    }
+}
+
+.chapter {
+    page: A;
+}
+
+.category-title {
+    string-set: category content();
+    margin-left: 0;
+    margin-top: 30%;
+    font-size: 88pt;
+    font-weight: $f-xlight;
+    page-break-before: always;
+    page-break-after: always;
+    color: $accent-color-yellow;
+    page : C;
+}

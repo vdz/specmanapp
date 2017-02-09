@@ -12,11 +12,21 @@ const CONFIG = {
         doc  : {
             document_content : '',
             type : 'pdf',
-            test: true,
+            test: false,
             javascript: false
         }
     }
 };
+
+function throwFile(file_name) {
+    const file_location = './public/pdf/' + file_name;
+    const file = fs.createReadStream(file_location);
+    const stat = fs.statSync(file_location);
+    res.setHeader('Content-Length', stat.size);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=' + file_name);
+    file.pipe(res);
+}
 
 function handler(req, res) {
     const content = req.body.doc;
@@ -26,7 +36,7 @@ function handler(req, res) {
 
     request.post(payload, (err, response, body) => {
         fs.writeFile('./public/pdf/' + file_name, body, 'binary', (err) => {
-            console.log('Saved!');
+            console.log('Saved!', file_name);
             res.json({
                 created : true,
                 url : '/pdf/' + file_name

@@ -8,7 +8,7 @@ sass_dir = "./client/sass"
 images_dir = "./client/sass/images"
 generated_images_dir = "./public/images"
 
-output_style = :compressed
+output_style = :compact
 sourcemap = true
 
 relative_assets = true

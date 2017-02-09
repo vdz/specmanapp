@@ -2,33 +2,53 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { setPrintMode } from '../../actions/ui.actions.js';
-import { docraptor } from '../../helpers/docraptor.js';
+import { docraptor, getRawPrintCSS } from '../../helpers/print_api.js';
+import { addClass, removeClass } from '../../helpers/utils.js';
 
-const PRINT_MODES = ['section', 'location', 'name']
+const PRINT_MODES = ['section', 'location', 'name'];
 
 export class PrintSettings extends React.Component {
 
     setMode(mode) {
         this.props.setPrintMode(mode);
     }
-    
+
+    injectCSS(css_content) {
+        const print_css = document.getElementById('print_css');
+        const head = document.head;
+        const style = document.createElement('style');
+
+        head.appendChild(style);
+        style.type = 'text/css';
+
+        style.appendChild(document.createTextNode(css_content));
+        head.removeChild(print_css);
+    }
+
     print() {
         const controls = this.refs.controls;
-        controls.classList.add('hidden');
+        const link = this.refs.link;
+        getRawPrintCSS().then(css => {
+            this.injectCSS(css);
 
-        docraptor({
-            method : 'post',
-            params : {
-                doc : document.documentElement.innerHTML,
-                name : this.props.project.name.replace(' ', '_')
-            }
-        }).then((r) => {
-            r = JSON.parse(r);
-            if (r.url) {
-                controls.classList.remove('hidden');
-                this.refs.link.setAttribute('href', r.url);
-            }
-        })
+            addClass(controls, 'hidden');
+
+            docraptor({
+                method : 'post',
+                params : {
+                    doc : document.documentElement.innerHTML,
+                    name : this.props.project.name.replace(' ', '_')
+                }
+            }).then((r) => {
+                r = JSON.parse(r);
+                if (r.url) {
+                    removeClass(controls, 'hidden');
+                    removeClass(link, 'hidden');
+                    link.setAttribute('href', r.url);
+                }
+            })
+        });
+
     }
 
     getSortControls() {
@@ -43,7 +63,7 @@ export class PrintSettings extends React.Component {
         });
 
         return (
-            <div className="btn-group">
+            <div className="sorting btn-group">
                 { buttons }
             </div>
         );
@@ -54,8 +74,16 @@ export class PrintSettings extends React.Component {
         return (
             <section ref='controls' className="PrintSettings">
                 { sort }
-                <button onClick={() => this.print()}>Print</button>
-                <a ref='link'>Download</a>
+                <div className='printing'>
+                    <button className="print"
+                            onClick={() => this.print()}>
+                        Print
+                    </button>
+                    <a ref='link'
+                       className="download hidden">
+                        Download
+                    </a>
+                </div>
             </section>
         )
     }

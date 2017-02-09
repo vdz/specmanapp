@@ -1,62 +1,79 @@
 .Spec {
     page-break-inside: avoid;
     clear: both;
-    height: 50%;
-    padding-bottom: 0.5cm;
-    margin-bottom: 0.5cm;
+    padding-bottom: 5mm;
 
     .spec-title {
-        margin-left: 4cm;
-        font-size: 16pt;
-        font-weight: bold;
+        margin-left: 0;
+        margin-bottom: 2mm;
+        font-size: 18pt;
+        font-weight: $f-black;
     }
     .spec-desc {
-        margin-left: 4cm;
+        margin-left: 0;
+        color: #666;
     }
+
     .spec-info {
-        margin-top: 1cm;
+        margin-top: 5mm;
         overflow: hidden;
-        display: table;
-        table-layout: fixed;
+        //display: table;
+        //table-layout: fixed;
         vertical-align: top;
+        page-break-inside: avoid;
 
         .spec-images {
-            display: table-cell;
+            display: block;
+            float: left;
             width: 50%;
 
+            figure {
+                margin-bottom: 3mm;
+            }
+
             img {
-                max-height: 3in;
+                max-height: 2.8in;
+                max-width: 100%;
+                display: block;
+                margin-bottom: 3mm;
+            }
+
+            figcaption {
+                font-weight: $f-normal;
+                font-style: italic;
+                font-size: $base-font-size*0.75;
+                color: #666;
+                padding-bottom: 3mm;
+                border-bottom: 1pt solid #ccc;
             }
         }
 
         .spec-fields {
-            display: table-cell;
+            display: block;
+            margin: 0;
+            float: left;
             width: 50%;
             vertical-align: top;
-
-            dl {
-                margin-left: 1cm;
-            }
-
-            dt, dd {
-                display: block;
-            }
-
-            dt {
-                font-weight: bold;
-            }
-
-            dd {
-                margin-bottom: 0.3cm;
-            }
         }
     }
-}
 
-@page {
-    :left {
+    dl {
+        margin-left: 1cm;
     }
 
-    :right {
+    dt, dd {
+        display: block;
+        margin-left: 10mm;
+    }
+
+    dt {
+        font-weight: $f-normal;
+        font-style: italic;
+        color: #666;
+    }
+
+    dd {
+        margin-bottom: 0.3cm;
+        font-size: 1.2*$base-font-size;
     }
 }

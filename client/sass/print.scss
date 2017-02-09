@@ -1,4 +1,9 @@
 @import 'compass/reset';
 
+@import 'print/config';
 @import 'print/page';
+@import 'print/layout';
+@import 'print/helpers';
+
+@import 'print/app';
 @import 'print/Spec';
