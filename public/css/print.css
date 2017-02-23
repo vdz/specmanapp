@@ -15,18 +15,20 @@ a img { border: none; }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }
 
-.front-cover .project { string-set: project content(); }
+.cover .project { string-set: project content(); }
 
 @page { size: 5.5in 8.5in; margin: 1in;
   @top-left ,
     @top-right
     @top-center { background-color: #ccc; }
   @top-center { text-align: center; margin-top: 1em; } }
-@page A { @top-center { font-size: 7.8pt; color: #999; text-align: center; content: string(project) " - " string(category); } }
+@page A { @top-center { font-size: 9pt; color: #999; font-family: "Neuton"; font-style: italic; text-align: center; content: string(project) " - " string(category); }
+  @bottom-right { border-top: .25pt solid #666; content: ' '; }
+  @bottom-left { border-top: .25pt solid #666; content: ' '; } }
 @page A:left { margin-left: 1.2in; margin-right: 1in;
-  @bottom-left-corner { content: counter(page); font-size: 9.6pt; color: #999; vertical-align: top; text-align: right; } }
+  @bottom-left-corner { content: counter(page); margin: 5mm 5mm; font-size: 9.6pt; color: #999; vertical-align: top; text-align: right; } }
 @page A:right { margin-right: 1.2in; margin-left: 1in;
-  @bottom-right-corner { content: counter(page); font-size: 9.6pt; color: #999; vertical-align: top; text-align: left; } }
+  @bottom-right-corner { content: counter(page); margin: 5mm 5mm; font-size: 9.6pt; color: #999; vertical-align: top; text-align: left; } }
 @page B:right {}
 @page B:left {}
 @page C { background-color: #000; }
@@ -36,10 +38,15 @@ body { font-family: "Neuton"; font-size: 12pt; font-weight: 400; }
 .cover .project { margin-top: 38%; color: #fff; font-weight: 300; font-size: 60pt; text-align: center; }
 .cover .credit { margin: 10mm auto; text-align: center; color: #DDB756; font-size: 19.2pt; letter-spacing: 1pt; font-weight: 400; }
 .cover .credit .logo { margin: 45mm auto; display: block; width: 2.5in; }
+.cover .date { text-align: center; color: #999; }
 
 .chapter { page: A; }
 
 .category-title { string-set: category content(); margin-left: 0; margin-top: 30%; font-size: 88pt; font-weight: 200; page-break-before: always; page-break-after: always; color: #DDB756; page: C; }
+
+.page-title { string-set: category content(); font-size: 36pt; font-weight: 700; color: #999; margin-bottom: 10mm; text-align: center; page-break-after: avoid; }
+
+.TOC { page: B; }
 
 .hidden { display: none; }
 
@@ -47,6 +54,10 @@ body { font-family: "Neuton"; font-size: 12pt; font-weight: 400; }
 
 .PrintSettings { width: 100%; padding: 20px; background-color: #f0f0f0; }
 .PrintSettings button { margin: 5px; }
+
+.TOC .toc-item { display: block; margin-bottom: 4mm; color: #333; text-decoration: none; }
+.TOC .toc-item em { color: #999; }
+.TOC .toc-item:after { content: leader(".") target-counter(attr(href), page); }
 
 .Spec { page-break-inside: avoid; clear: both; padding-bottom: 5mm; }
 .Spec .spec-title { margin-left: 0; margin-bottom: 2mm; font-size: 18pt; font-weight: 800; }

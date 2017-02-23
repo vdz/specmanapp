@@ -29,6 +29,11 @@ body {
             width: 2.5in;
         }
     }
+
+    .date {
+        text-align: center;
+        color: #999;
+    }
 }
 
 .chapter {
@@ -45,4 +50,18 @@ body {
     page-break-after: always;
     color: $accent-color-yellow;
     page : C;
+}
+
+.page-title {
+    string-set: category content();
+    font-size: 36pt;
+    font-weight: $f-bold;
+    color: #999;
+    margin-bottom: 10mm;
+    text-align: center;
+    page-break-after: avoid;
+}
+
+.TOC {
+    page: B;
 }

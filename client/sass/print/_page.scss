@@ -1,4 +1,4 @@
-.front-cover .project { string-set: project content() }
+.cover .project { string-set: project content() }
 
 @page {
     size: $page-width $page-height;
@@ -18,10 +18,21 @@
 
 @page A {
     @top-center {
-        font-size: 0.65 * $base-font-size;
+        font-size: 0.75 * $base-font-size;
         color: #999;
+        font-family: $base-font-family;
+        font-style: italic;
         text-align: center;
         content: string(project) " - " string(category);
+    }
+
+    @bottom-right {
+        border-top: .25pt solid #666;
+        content: ' ';
+    }
+    @bottom-left {
+        border-top: .25pt solid #666;
+        content: ' ';
     }
 }
 @page A:left {
@@ -30,6 +41,7 @@
 
     @bottom-left-corner {
         content: counter(page);
+        margin: 5mm 5mm;
         font-size: $base-font-size*0.8;
         color: #999;
         vertical-align: top;
@@ -42,6 +54,7 @@
 
     @bottom-right-corner {
         content: counter(page);
+        margin: 5mm 5mm;
         font-size: $base-font-size*0.8;
         color: #999;
         vertical-align: top;

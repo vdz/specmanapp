@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { TOC } from '../components/print/TOC.js';
+import TOC from '../components/print/TOC.js';
 import PrintListByMode from '../components/print/PrintListByMode.js';
 import { LegalPrint } from '../components/print/LegalPrint.js';
 import PrintSettings from '../components/print/PrintSettings.js';
@@ -11,6 +11,8 @@ const host_url = 'https://specman.herokuapp.com';
 export class Print extends React.Component {
     render() {
         const { project } = this.props;
+
+        const date = new Date();
 
         return  (
             <section className='print-container'>
@@ -24,6 +26,7 @@ export class Print extends React.Component {
                             Home Specification Guide & Contract
                             <img className='logo' src={host_url + '/images/arh-logo.png'} />
                         </div>
+                        <p className='date'>Issue date: { date.toLocaleString() }</p>
                     </section>
                     <TOC />
                     <PrintListByMode />

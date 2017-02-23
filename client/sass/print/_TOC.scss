@@ -1,0 +1,16 @@
+.TOC {
+    .toc-item {
+        display: block;
+        margin-bottom: 4mm;
+        color: #333;
+        text-decoration: none;
+
+        em {
+            color: #999;
+        }
+
+        &:after {
+            content: leader('.') target-counter(attr(href), page)
+        }
+    }
+}
