@@ -39,7 +39,7 @@ export class MiniSpecList extends React.Component {
                         <li key={'timy-spec-list-item-'+id}
                             onClick={() => this.navigate(id)}
                             className="">
-                            <a href="javascript:;">{specs[id].name}</a>
+                            <a href="#">{specs[id].name}</a>
                         </li>);
                 }
             });
@@ -106,7 +106,7 @@ export class MiniSpecList extends React.Component {
                 <li key={'tiny-spec-list-item-'+id}
                     onClick={() => this.navigate(id)}
                     className="">
-                    <a href="javascript:;">{specs[id].name}</a>
+                    <a href="#">{specs[id].name}</a>
                 </li>
             );
          });

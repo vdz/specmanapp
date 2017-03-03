@@ -17,7 +17,8 @@ module.exports = {
         //_ define REST resources
         const projectResource = epilogue.resource({
             model : db.Project,
-            endpoints : ['/projects', '/projects/:id']
+            endpoints : ['/projects', '/projects/:id'],
+            pagination : false
         });
 
         const sectionResource = epilogue.resource({
@@ -29,11 +30,13 @@ module.exports = {
                 }
             ],
             endpoints : ['/sections', '/sections/:id'],
+            pagination : false
         });
 
         const locationResource = epilogue.resource({
             model : db.Location,
             endpoints : ['/locations', '/locations/:id'],
+            pagination : false
         });
 
         const typeResource = epilogue.resource({
@@ -42,7 +45,8 @@ module.exports = {
             search: {
                 param: 'section',
                 attributes: [ 'section_id' ]
-            }
+            },
+            pagination : false
         });
 
         const specResource = epilogue.resource({
@@ -61,7 +65,8 @@ module.exports = {
             search: {
                 param: 'project',
                 attributes: [ 'project_id' ]
-            }
+            },
+            pagination : false
         });
 
         specResource.update.write((req, res, context) => {
@@ -105,7 +110,8 @@ module.exports = {
             search: {
                 param: 'spec',
                 attributes: [ 'spec_id' ]
-            }
+            },
+            pagination : false
         });
 
         const fieldResource = epilogue.resource({
@@ -114,7 +120,8 @@ module.exports = {
             search: {
                 param: 'spec',
                 attributes: [ 'spec_id' ]
-            }
+            },
+            pagination : false
         });
     }
 };

@@ -1,5 +1,5 @@
 {
-    "dev" : {
+    "dev-0" : {
         "host" : "127.0.0.1",
         "database" : "specman",
         "username" : "root",
@@ -11,6 +11,13 @@
             "min": 0,
             "idle": 10000
         }
+    },
+    "dev": {
+        "username": "b01d248cac0d35",
+        "password": "313b83f3",
+        "database": "heroku_9df8b9d0002f43d",
+        "host": "us-cdbr-iron-east-04.cleardb.net",
+        "dialect": "mysql"
     },
     "test": {
         "username": "root",
