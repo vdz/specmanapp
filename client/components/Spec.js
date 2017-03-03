@@ -10,7 +10,7 @@ import {
 import { updateSpec, deleteSpec, deleteField, deleteDoc } from '../actions/data.actions.js';
 import { push } from 'react-router-redux';
 import { buildRoute } from '../config/routes.js';
-import { addClass, removeClass } from '../helpers/utils.js';
+import { addClass, removeClass, thumbnail } from '../helpers/utils.js';
 import { config } from '../config/config.js';
 import  { showModal } from '../actions/ui.actions.js';
 
@@ -165,7 +165,22 @@ export class Spec extends React.Component {
                url : item.url,
                thumb : item.thumbnail_url,
                remote_id : item.public_id,
-               meta : '', //JSON.stringify(item),
+               meta : JSON.stringify({
+                   pages : item.pages,
+                   format : item.format,
+                   resource_type : item.resource_type,
+                   height: item.height,
+                   width : item.width,
+                   bytes : item.bytes,
+                   created_at : item.created_at,
+                   etag : item.etag,
+                   existing : item.existing,
+                   path : item.path,
+                   secure_url : item.secure_url,
+                   signature : item.signature,
+                   type : item.type,
+                   version : item.version
+                }),
                label : item.original_filename
            }
         });
@@ -287,7 +302,7 @@ export class Spec extends React.Component {
                         <a href={item.url}
                            title='Cmd+click to open the image in a new tab'
                            className="figure">
-                            <img src={item.url}
+                            <img src={thumbnail(item.url)}
                                  ref={ref}
                                  className="img-thumbnail image-fluid rounded figure-image" />
                         </a>

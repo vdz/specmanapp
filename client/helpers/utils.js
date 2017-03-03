@@ -46,3 +46,17 @@ export function sortItemsByParam(list, param = 'name', dir = 'asc') {
 
     return result;
 }
+
+export function thumbnail(url) {
+    const pdf_loc = url.lastIndexOf('.pdf');
+    return (pdf_loc == -1) ? url : url.substr(0, pdf_loc) + '.jpg';
+}
+
+export function page(url, page) {
+    const pos = url.indexOf('/upload/');
+    let result = url;
+    if (pos != -1) {
+        result = url.substr(0, pos) + '/upload/pg_'+page+'/'+url.substr(pos+8);
+    }
+    return result;
+}

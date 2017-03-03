@@ -1,4 +1,5 @@
 import React from 'react';
+import { thumbnail, page } from '../../helpers/utils.js';
 
 export class SpecPrintModule extends React.Component {
 
@@ -7,12 +8,34 @@ export class SpecPrintModule extends React.Component {
         const fields = this.props.spec.docs;
 
         fields && fields.forEach((item, index) => {
-            result.push(
-                <figure key={'figure-'+item.id+'-'+index}>
-                    <img src={item.url} className='figure-image' />
-                    <figcaption>{(index+1) + '. ' + item.label}</figcaption>
-                </figure>
-            )
+            let ext = item.url.substr(item.url.lastIndexOf('.')+1);
+            let meta = item.meta ? JSON.parse(item.meta) : {};
+            if (ext.toLowerCase() == 'pdf') {
+                if (meta && meta.pages) {
+                    for (let i=0;i<meta.pages;i++) {
+                        result.push(
+                            <figure key={'figure-'+item.id+'-'+index+'-'+i} className='full-size'>
+                                <img src={thumbnail(page(item.url, i+1))} className='figure-image' />
+                                <figcaption>{(index+1) + '. ' + item.label + ' p.'+(i+1)}</figcaption>
+                            </figure>
+                        );
+                    }
+                } else {
+                    result.push(
+                        <figure key={'figure-'+item.id+'-'+index} className='full-size'>
+                            <img src={thumbnail(item.url)} className='figure-image' />
+                            <figcaption>{(index+1) + '. ' + item.label}</figcaption>
+                        </figure>
+                    );
+                }
+            } else {
+                result.push(
+                    <figure key={'figure-'+item.id+'-'+index}>
+                        <img src={item.url} className='figure-image' />
+                        <figcaption>{(index+1) + '. ' + item.label}</figcaption>
+                    </figure>
+                )
+            }
         });
         return (
             <div className='spec-images'>

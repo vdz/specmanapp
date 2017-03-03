@@ -7,7 +7,7 @@ module.exports =  function(sequelize, DataTypes) {
         remote_id       : DataTypes.STRING,
         url             : DataTypes.STRING,
         thumb           : DataTypes.STRING,
-        meta            : DataTypes.STRING
+        meta            : DataTypes.TEXT
     }, {
         underscored : true
     });

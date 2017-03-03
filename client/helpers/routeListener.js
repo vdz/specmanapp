@@ -121,7 +121,7 @@ function handleSpec(location) {
         });
         getSectionData(params, (obj) => {
             store.dispatch(setSection(obj));
-            spec.type_id && store.dispatch(setSpec(obj.types[spec.type_id]));
+            (spec && spec.type_id) && store.dispatch(setSpec(obj.types[spec.type_id]));
         });
 
         return true;
