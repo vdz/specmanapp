@@ -9,7 +9,14 @@ export class SpecPrintModule extends React.Component {
 
         fields && fields.forEach((item, index) => {
             let ext = item.url.substr(item.url.lastIndexOf('.')+1);
-            let meta = item.meta ? JSON.parse(item.meta) : {};
+
+            let meta = {};
+            if (item.meta) {
+                try {
+                    meta = JSON.parse(item.meta);
+                } catch(e) {}
+            }
+
             if (ext.toLowerCase() == 'pdf') {
                 if (meta && meta.pages) {
                     for (let i=0;i<meta.pages;i++) {
