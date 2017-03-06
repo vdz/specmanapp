@@ -98,7 +98,7 @@ export class MiniSpecList extends React.Component {
 
     getSpecsByName() {
         const { specs } = this.props.data;
-        const sorted_ids = sortItemsByParam(specs, 'order');
+        const sorted_ids = sortItemsByParam(specs, 'name');
         let list =[];
 
         sorted_ids.forEach((id) => {
