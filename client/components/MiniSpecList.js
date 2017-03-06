@@ -26,7 +26,9 @@ export class MiniSpecList extends React.Component {
         const categories = this.props.data[param+'s'];
         const cat_id = param+'_id';
         const sorted_ids = sortItemsByParam(specs, cat_id);
-        const sorted_parent_ids = Object.keys(categories).sort();
+        const sorted_parent_ids = (param == 'location')
+            ? sortItemsByParam(categories, 'order')
+            : Object.keys(categories).sort();
         let list =[];
 
         if (!sorted_ids.length) return;
