@@ -3,7 +3,8 @@
 module.exports =  function(sequelize, DataTypes) {
     const Location =  sequelize.define('Location', {
         name            : DataTypes.STRING,
-        description     : DataTypes.TEXT
+        description     : DataTypes.TEXT,
+        order           : DataTypes.INTEGER
     }, {
         underscored : true
     });

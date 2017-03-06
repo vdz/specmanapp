@@ -98,10 +98,10 @@ export class MiniSpecList extends React.Component {
 
     getSpecsByName() {
         const { specs } = this.props.data;
-        const sorted_ids = sortItemsByParam(specs, 'name');
+        const sorted_ids = sortItemsByParam(specs, 'order');
         let list =[];
 
-        sorted_ids.forEach((id, index) => {
+        sorted_ids.forEach((id) => {
             list.push(
                 <li key={'tiny-spec-list-item-'+id}
                     onClick={() => this.navigate(id)}

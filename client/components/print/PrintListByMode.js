@@ -65,10 +65,10 @@ export class PrintListByMode extends React.Component {
 
     getContentByName() {
         const { specs } = this.props.data;
-        const sorted_ids = sortItemsByParam(specs, 'name');
+        const sorted_ids = sortItemsByParam(specs, 'order');
         let list =[];
 
-        sorted_ids.forEach((id, index) => {
+        sorted_ids.forEach((id) => {
             list.push(<SpecPrintModule id={'spec-'+id} key={'spec-print-'+id} spec={specs[id]} />);
         });
 

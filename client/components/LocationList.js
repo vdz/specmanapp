@@ -6,6 +6,8 @@ import { updateLocation as updateItem, deleteLocation as deleteItem } from '../a
 import { setLocation } from '../actions/current.actions.js';
 import { buildRoute } from '../config/routes.js';
 import { push } from 'react-router-redux';
+import { sortItemsByParam } from '../helpers/utils.js';
+
 
 export class SectionList extends React.Component {
 
@@ -45,7 +47,9 @@ export class SectionList extends React.Component {
     getItems() {
         const { items } = this.props;
         let result = [];
-        Object.keys(items).map((id) => {
+        const sorted_ids = sortItemsByParam(items, 'order');
+
+        sorted_ids.map((id) => {
             result.push(<ListItem key={'location-item-' + id}
                                          update={(params) => this.save(params)}
                                          delete={(params) => this.delete(params)}

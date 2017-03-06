@@ -38,7 +38,15 @@ export function sortItemsByParam(list, param = 'name', dir = 'asc') {
                 r = 0;
             }
         } else {
-            r = list[a][param] - list[b][param];
+            if (list[a][param] === null && list[b][param] === null) {
+                r = 0;
+            } else if (list[a][param] === null) {
+                r = 1;
+            } else if (list[b][param] === null) {
+                r = -1;
+            } else {
+                r = list[a][param] - list[b][param];
+            }
         }
 
         return (dir == 'asc') ? r : (r * -1);
