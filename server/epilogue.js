@@ -5,12 +5,10 @@ const epilogue = require('epilogue');
 module.exports = {
     init: function(app) {
 
-        app.use(bodyParser());
-        app.use(bodyParser({limit: 524288000}));
         app.use(bodyParser.json({limit: 524288000}));
         app.use(bodyParser.urlencoded({
             limit: 524288000,
-            extended: true,
+            extended: false,
             parameterLimit: 524288000
         }));
 
