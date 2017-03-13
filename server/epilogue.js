@@ -6,12 +6,12 @@ module.exports = {
     init: function(app) {
 
         app.use(bodyParser());
-        app.use(bodyParser({limit: '100mb'}));
-        app.use(bodyParser.json({limit: '100mb'}));
+        app.use(bodyParser({limit: 524288000}));
+        app.use(bodyParser.json({limit: 524288000}));
         app.use(bodyParser.urlencoded({
-            limit: '100mb',
+            limit: 524288000,
             extended: true,
-            parameterLimit: 5000000
+            parameterLimit: 524288000
         }));
 
         epilogue.initialize({
