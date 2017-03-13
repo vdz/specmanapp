@@ -217,6 +217,8 @@ export class Spec extends React.Component {
             cloud_name : config.CLOUDINARY.name,
             upload_preset : 'mtuq44zw',
             multiple : true,
+            theme : 'white',
+            cropping : 'server',
             client_allowed_formats : ['jpg','gif','jpeg','png','pdf']
         }, (err, res) => {
             if (err) {

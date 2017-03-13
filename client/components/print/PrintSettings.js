@@ -73,6 +73,7 @@ export class PrintSettings extends React.Component {
         const sort = this.getSortControls();
         return (
             <section ref='controls' className="PrintSettings">
+                <a className='back' href="/">Back to project list</a>
                 { sort }
                 <div className='printing'>
                     <button className="print"

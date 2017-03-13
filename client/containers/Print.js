@@ -22,6 +22,9 @@ export class Print extends React.Component {
                         <h1 className='project'>
                             { project && project.name }
                         </h1>
+                        <h3 className='address'>
+                            { project && project.address }
+                        </h3>
                         <div className="credit">
                             Home Specification Guide & Contract
                             <img className='logo' src={host_url + '/images/arh-logo.png'} />

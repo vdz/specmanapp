@@ -20,17 +20,23 @@ export class SpecPrintModule extends React.Component {
             if (ext.toLowerCase() == 'pdf') {
                 if (meta && meta.pages) {
                     for (let i=0;i<meta.pages;i++) {
+                        let img_url = page(item.url, i+1);
                         result.push(
                             <figure key={'figure-'+item.id+'-'+index+'-'+i} className='full-size'>
-                                <img src={thumbnail(page(item.url, i+1))} className='figure-image' />
+                                <a href={img_url}>
+                                    <img src={thumbnail(img_url)} className='figure-image' />
+                                </a>
                                 <figcaption>{(index+1) + '. ' + item.label + ' p.'+(i+1)}</figcaption>
                             </figure>
                         );
                     }
                 } else {
+                    let img_url = item.url;
                     result.push(
                         <figure key={'figure-'+item.id+'-'+index} className='full-size'>
-                            <img src={thumbnail(item.url)} className='figure-image' />
+                            <a href={img_url}>
+                                <img src={thumbnail(img_url)} className='figure-image' />
+                            </a>
                             <figcaption>{(index+1) + '. ' + item.label}</figcaption>
                         </figure>
                     );
@@ -38,7 +44,9 @@ export class SpecPrintModule extends React.Component {
             } else {
                 result.push(
                     <figure key={'figure-'+item.id+'-'+index}>
-                        <img src={item.url} className='figure-image' />
+                        <a href={item.url}>
+                            <img src={item.url} className='figure-image' />
+                        </a>
                         <figcaption>{(index+1) + '. ' + item.label}</figcaption>
                     </figure>
                 )
