@@ -23,12 +23,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     @top-center { background-color: #ccc; }
   @top-center { text-align: center; margin-top: 1em; } }
 @page A { @top-center { font-size: 9pt; color: #999; font-family: "Neuton"; font-style: italic; text-align: center; content: string(project) " - " string(category); }
+  @bottom-center { border-top: .25pt solid #eee; line-height: 36pt; font-size: 9.6pt; color: #999; content: "Buyer:__________________    Date:__________________"; }
   @bottom-right { border-top: .25pt solid #666; content: ' '; }
   @bottom-left { border-top: .25pt solid #666; content: ' '; } }
 @page A:left { margin-left: 1.2in; margin-right: 1in;
-  @bottom-left-corner { content: counter(page); margin: 5mm 5mm; font-size: 9.6pt; color: #999; vertical-align: top; text-align: right; } }
+  @bottom-center { text-align: left; }
+  @bottom-left-corner { content: counter(page); margin: 5mm 5mm; font-size: 9.6pt; line-height: 30pt; color: #999; vertical-align: top; text-align: center; } }
 @page A:right { margin-right: 1.2in; margin-left: 1in;
-  @bottom-right-corner { content: counter(page); margin: 5mm 5mm; font-size: 9.6pt; color: #999; vertical-align: top; text-align: left; } }
+  @bottom-center { text-align: right; }
+  @bottom-right-corner { content: counter(page); margin: 5mm 5mm; font-size: 9.6pt; line-height: 30pt; color: #999; vertical-align: top; text-align: center; } }
 @page B:right {}
 @page B:left {}
 @page C { background-color: #000; }

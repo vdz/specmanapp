@@ -26,6 +26,14 @@
         content: string(project) " - " string(category);
     }
 
+    @bottom-center {
+        border-top: .25pt solid #eee;
+        line-height: $base-font-size*3;
+        font-size: $base-font-size*0.8;
+        color: #999;
+        content: "Buyer:__________________    Date:__________________";
+    }
+
     @bottom-right {
         border-top: .25pt solid #666;
         content: ' ';
@@ -39,26 +47,36 @@
     margin-left: $page-ext-margin;
     margin-right: $page-int-margin;
 
+    @bottom-center {
+        text-align: left;
+    }
+
     @bottom-left-corner {
         content: counter(page);
         margin: 5mm 5mm;
         font-size: $base-font-size*0.8;
+        line-height: $base-font-size*2.5;
         color: #999;
         vertical-align: top;
-        text-align: right;
+        text-align: center;
     }
 }
 @page A:right {
     margin-right: $page-ext-margin;
     margin-left: $page-int-margin;
 
+    @bottom-center {
+        text-align: right;
+    }
+
     @bottom-right-corner {
         content: counter(page);
         margin: 5mm 5mm;
         font-size: $base-font-size*0.8;
+        line-height: $base-font-size*2.5;
         color: #999;
         vertical-align: top;
-        text-align: left;
+        text-align: center;
     }
 }
 

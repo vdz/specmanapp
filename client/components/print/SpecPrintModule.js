@@ -26,7 +26,7 @@ export class SpecPrintModule extends React.Component {
                                 <a href={img_url}>
                                     <img src={thumbnail(img_url)} className='figure-image' />
                                 </a>
-                                <figcaption>{(index+1) + '. ' + item.label + ' p.'+(i+1)}</figcaption>
+                                { (item.label == 'new image') ? '' : <figcaption>{(index+1) + '. ' + item.label + ' p.'+(i+1)}</figcaption> }
                             </figure>
                         );
                     }
@@ -37,7 +37,7 @@ export class SpecPrintModule extends React.Component {
                             <a href={img_url}>
                                 <img src={thumbnail(img_url)} className='figure-image' />
                             </a>
-                            <figcaption>{(index+1) + '. ' + item.label}</figcaption>
+                            { (item.label == 'new image') ? '' : <figcaption>{(index+1) + '. ' + item.label}</figcaption> }
                         </figure>
                     );
                 }
